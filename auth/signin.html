@@ -19,50 +19,31 @@
       <a href="/" class="auth-logo">DocLens</a>
 
       <h1 class="auth-title">Welcome Back</h1>
-      <p class="auth-subtitle">Sign in to your account</p>
+      <p class="auth-subtitle">Sign in with your Google account</p>
 
       <div id="error-message" class="error-message" style="display: none;"></div>
 
-      <form id="signin-form" class="auth-form">
-        <div class="form-group">
-          <label for="email" class="form-label">Email</label>
-          <input
-            type="email"
-            id="email"
-            class="form-input"
-            placeholder="your.email@school.edu"
-            required
-            autocomplete="email"
-          >
-        </div>
-
-        <div class="form-group">
-          <label for="password" class="form-label">Password</label>
-          <input
-            type="password"
-            id="password"
-            class="form-input"
-            placeholder="Your password"
-            required
-            autocomplete="current-password"
-          >
-        </div>
-
-        <div class="form-group form-group-row">
-          <label class="checkbox-label">
-            <input type="checkbox" id="remember-me">
-            <span>Remember me</span>
-          </label>
-          <a href="/auth/reset-password.html" class="text-link">Forgot password?</a>
-        </div>
-
-        <button type="submit" class="btn btn-primary btn-block" id="submit-btn">
-          Sign In
+      <div class="auth-form">
+        <button type="button" class="btn-google" id="google-signin-btn">
+          <svg width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17.64 9.205c0-.639-.057-1.252-.164-1.841H9v3.481h4.844a4.14 4.14 0 0 1-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615z" fill="#4285F4"/>
+            <path d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z" fill="#34A853"/>
+            <path d="M3.964 10.71A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.042l3.007-2.332z" fill="#FBBC05"/>
+            <path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z" fill="#EA4335"/>
+          </svg>
+          <span>Sign in with Google</span>
         </button>
-      </form>
+
+        <div class="auth-info">
+          <p class="auth-info-text">
+            DocLens uses your Google account since it works with Google Docs.
+            Your Google credentials are never stored by DocLens.
+          </p>
+        </div>
+      </div>
 
       <p class="auth-footer">
-        Don't have an account? <a href="/auth/signup.html">Start free trial</a>
+        Don't have an account? <a href="/auth/signup.html?trial=true">Try free for 14 days</a>
       </p>
     </div>
   </div>
@@ -77,9 +58,8 @@
     // import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
     // const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
 
-    const form = document.getElementById('signin-form')
+    const googleSigninBtn = document.getElementById('google-signin-btn')
     const errorMessage = document.getElementById('error-message')
-    const submitBtn = document.getElementById('submit-btn')
 
     function showError(message) {
       errorMessage.textContent = message
@@ -90,63 +70,58 @@
       errorMessage.style.display = 'none'
     }
 
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault()
+    googleSigninBtn.addEventListener('click', async () => {
       hideError()
-
-      const email = document.getElementById('email').value
-      const password = document.getElementById('password').value
-
-      // Disable button during submission
-      submitBtn.disabled = true
-      submitBtn.textContent = 'Signing in...'
+      googleSigninBtn.disabled = true
+      googleSigninBtn.querySelector('span').textContent = 'Signing in...'
 
       try {
         // TODO: Uncomment when Supabase is set up
         /*
-        const { data, error } = await supabase.auth.signInWithPassword({
-          email,
-          password
+        const { data, error } = await supabase.auth.signInWithOAuth({
+          provider: 'google',
+          options: {
+            redirectTo: `${window.location.origin}/auth/callback`,
+            queryParams: {
+              access_type: 'offline',
+              prompt: 'select_account',
+            }
+          }
         })
 
         if (error) throw error
 
-        // Get the session token
-        const session = data.session
-
-        if (session) {
-          // Try to send token to extension
-          if (typeof chrome !== 'undefined' && chrome.runtime) {
-            chrome.runtime.sendMessage(
-              { type: 'AUTH_TOKEN', token: session.access_token },
-              (response) => {
-                if (chrome.runtime.lastError) {
-                  // Extension not installed, redirect to account page
-                  window.location.href = '/account/'
-                } else {
-                  // Success! Show message and close
-                  alert('Signed in successfully! You can close this tab.')
-                  setTimeout(() => window.close(), 2000)
-                }
-              }
-            )
-          } else {
-            // Not in extension context, redirect to account page
-            window.location.href = '/account/'
-          }
-        }
+        // User will be redirected to Google, then back to callback URL
         */
 
-        // TEMPORARY: Just show success message until Supabase is set up
-        alert('Sign in form submitted! (Supabase not yet configured)')
-        console.log('Would sign in:', email)
+        // TEMPORARY: Just show success message until backend is set up
+        alert('Google OAuth not yet configured. You would be redirected to Google sign-in.')
+        console.log('Would sign in with Google')
+
+        // TODO: After OAuth callback and session established:
+        // if (typeof chrome !== 'undefined' && chrome.runtime) {
+        //   // Send token to extension
+        //   chrome.runtime.sendMessage(
+        //     { type: 'AUTH_TOKEN', token: session.access_token },
+        //     (response) => {
+        //       if (chrome.runtime.lastError) {
+        //         window.location.href = '/account/'
+        //       } else {
+        //         alert('Signed in successfully! You can close this tab.')
+        //         setTimeout(() => window.close(), 2000)
+        //       }
+        //     }
+        //   )
+        // } else {
+        //   window.location.href = '/account/'
+        // }
 
       } catch (error) {
-        console.error('Signin error:', error)
-        showError(error.message || 'Invalid email or password')
+        console.error('Google signin error:', error)
+        showError(error.message || 'An error occurred. Please try again.')
       } finally {
-        submitBtn.disabled = false
-        submitBtn.textContent = 'Sign In'
+        googleSigninBtn.disabled = false
+        googleSigninBtn.querySelector('span').textContent = 'Sign in with Google'
       }
     })
   </script>

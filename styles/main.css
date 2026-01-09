@@ -412,6 +412,33 @@ a:hover {
   margin-bottom: var(--spacing-md);
 }
 
+.pricing-options {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
+}
+
+.pricing-option {
+  flex: 1;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pricing-divider {
+  color: var(--color-text-light);
+  font-size: 1rem;
+  padding: 0 var(--spacing-sm);
+  margin-top: 1rem;
+}
+
+.pricing-options .pricing-price {
+  margin-bottom: 0;
+}
+
 .pricing-price {
   margin-bottom: var(--spacing-md);
 }
@@ -425,6 +452,13 @@ a:hover {
 .pricing-period {
   font-size: 1.25rem;
   color: var(--color-text-light);
+}
+
+.pricing-billing {
+  font-size: 0.9rem;
+  color: var(--color-text-light);
+  margin-top: 0.5rem;
+  min-height: 1.5rem;
 }
 
 .pricing-features {
@@ -443,6 +477,19 @@ a:hover {
   border-bottom: none;
 }
 
+.pricing-cta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.pricing-cta-divider {
+  text-align: center;
+  color: var(--color-text-light);
+  font-size: 0.9rem;
+  margin: 0;
+}
+
 .pricing-note {
   margin-top: var(--spacing-sm);
   color: var(--color-text-light);
@@ -452,6 +499,15 @@ a:hover {
 @media (max-width: 768px) {
   .pricing-grid {
     grid-template-columns: 1fr;
+  }
+
+  .pricing-options {
+    flex-direction: column;
+    gap: var(--spacing-md);
+  }
+
+  .pricing-divider {
+    padding: 0;
   }
 }
 
@@ -481,6 +537,48 @@ a:hover {
 .faq-answer {
   color: var(--color-text-light);
   line-height: 1.8;
+}
+
+/* ========================================
+   Privacy Policy
+   ======================================== */
+
+.privacy-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.privacy-section {
+  margin-bottom: var(--spacing-lg);
+}
+
+.privacy-section h3 {
+  font-size: 1.5rem;
+  margin-bottom: var(--spacing-sm);
+  color: var(--color-text);
+}
+
+.privacy-section p {
+  color: var(--color-text-light);
+  line-height: 1.8;
+  margin-bottom: var(--spacing-sm);
+}
+
+.privacy-section ul {
+  margin: var(--spacing-sm) 0;
+  padding-left: var(--spacing-md);
+  color: var(--color-text-light);
+  line-height: 1.8;
+}
+
+.privacy-section li {
+  margin-bottom: 0.5rem;
+}
+
+.privacy-updated {
+  font-style: italic;
+  font-size: 0.9rem;
+  margin-top: var(--spacing-md);
 }
 
 /* ========================================

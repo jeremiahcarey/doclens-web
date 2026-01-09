@@ -23,21 +23,25 @@ This repo contains:
 
 ```
 doclens-web/
-├── index.html              # Landing page
+├── index.html              # Landing page with privacy policy
 ├── auth/
-│   ├── signup.html        # Sign up page
-│   ├── signin.html        # Sign in page
-│   └── reset-password.html # Password reset (TODO)
+│   ├── signup.html        # Sign up with Google OAuth
+│   └── signin.html        # Sign in with Google OAuth
 ├── account/
 │   └── index.html         # Account management
+├── images/
+│   ├── button.png         # How It Works: DocLens button screenshot
+│   ├── playback.mp4       # How It Works: Playback video
+│   ├── export.mp4         # How It Works: Export video
+│   └── favicon.*          # Favicon files
 ├── styles/
 │   ├── main.css           # Main styles
-│   ├── auth.css           # Auth page styles
+│   ├── auth.css           # Auth page styles (with Google button)
 │   └── account.css        # Account page styles
 ├── scripts/
 │   └── nav.js             # Navigation helpers
 ├── api/                   # Serverless functions (TODO)
-│   ├── create-checkout.js # Stripe checkout
+│   ├── create-checkout.js # Stripe checkout for paid signup
 │   └── webhook.js         # Stripe webhooks
 ├── vercel.json            # Vercel config
 └── package.json
@@ -65,16 +69,24 @@ npm install
 1. Create a new project at [supabase.com](https://supabase.com)
 2. Go to Settings → API
 3. Copy your project URL and anon key
-4. Update the following files with your Supabase credentials:
-   - `auth/signup.html` (line 77-78)
-   - `auth/signin.html` (line 67-68)
-   - `account/index.html` (line 95-96)
+4. **Enable Google OAuth Provider:**
+   - Go to Authentication → Providers
+   - Enable Google
+   - Add OAuth credentials from Google Cloud Console
+   - Set redirect URL: `https://your-project.supabase.co/auth/v1/callback`
+5. Update the following files with your Supabase credentials:
+   - `auth/signup.html` (search for `SUPABASE_URL` and `SUPABASE_ANON_KEY`)
+   - `auth/signin.html` (search for `SUPABASE_URL` and `SUPABASE_ANON_KEY`)
+   - `account/index.html` (search for `SUPABASE_URL` and `SUPABASE_ANON_KEY`)
 
 ### 3. Set Up Stripe
 
 1. Create account at [stripe.com](https://stripe.com)
 2. Get your test API keys from Dashboard → Developers → API keys
-3. Create environment variables (see below)
+3. Create two products/prices:
+   - **Monthly Plan**: $5/month recurring
+   - **Annual Plan**: $40/year recurring
+4. Create environment variables (see below)
 
 ### 4. Environment Variables
 
@@ -90,6 +102,8 @@ SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
 STRIPE_SECRET_KEY=sk_test_...
 STRIPE_PUBLISHABLE_KEY=pk_test_...
 STRIPE_WEBHOOK_SECRET=whsec_...
+STRIPE_MONTHLY_PRICE_ID=price_...  # $5/month price ID
+STRIPE_ANNUAL_PRICE_ID=price_...   # $40/year price ID
 
 # Other
 NODE_ENV=development
@@ -148,12 +162,29 @@ The website communicates with the Chrome extension using `chrome.runtime.sendMes
 
 ### Authentication Flow:
 
-1. User clicks "Sign Up" in extension popup
-2. Opens `https://doclens.net/auth/signup`
-3. User creates account (Supabase)
-4. Website sends auth token to extension via `chrome.runtime.sendMessage()`
-5. Extension saves token and closes tab
-6. Extension now authenticated
+DocLens uses **Google OAuth exclusively** - no email/password authentication.
+
+**Trial Signup (No Credit Card):**
+1. User clicks "Try Free for 14 Days" → Opens `/auth/signup?trial=true`
+2. Clicks "Sign in with Google" → Google OAuth flow
+3. Confirms they are a teacher
+4. Account created with 14-day trial
+5. Website sends auth token to extension via `chrome.runtime.sendMessage()`
+6. Extension saves token and user is authenticated
+
+**Paid Signup (Immediate):**
+1. User clicks "Sign Up Now" → Opens `/auth/signup`
+2. Clicks "Sign in with Google" → Google OAuth flow
+3. Confirms they are a teacher
+4. Redirected to Stripe checkout for payment
+5. After payment, auth token sent to extension
+6. Extension saves token and subscription active
+
+**Sign In:**
+1. User clicks "Sign In" → Opens `/auth/signin`
+2. Clicks "Sign in with Google" → Google OAuth flow
+3. Website sends auth token to extension
+4. Extension authenticated
 
 ## Database Schema
 
@@ -166,34 +197,62 @@ Key tables:
 ## API Routes (TODO)
 
 ### `/api/create-checkout`
-Creates Stripe checkout session for subscription.
+Creates Stripe checkout session for paid signup.
+- Accepts `userId` and `priceId` (monthly or annual)
+- Creates checkout session with 14-day trial for immediate signups
+- Returns session URL for redirect
 
 ### `/api/webhook`
-Handles Stripe webhooks (subscription created/updated/canceled).
+Handles Stripe webhooks:
+- `checkout.session.completed` - Activate subscription after payment
+- `customer.subscription.updated` - Update subscription status
+- `customer.subscription.deleted` - Handle cancellation
+- Updates `subscriptions` table in Supabase
 
 ## Features
 
 ### Current (v1)
-- ✅ Landing page with product info
-- ✅ Sign up / sign in pages
+- ✅ Landing page with product info, screenshots, and videos
+- ✅ Privacy policy integrated into main page
+- ✅ Two pricing options: $5/month or $40/year
+- ✅ Dual signup flow: free trial (no CC) or paid (with CC)
+- ✅ Google OAuth authentication (sign up and sign in)
 - ✅ Basic account management page
-- ✅ Supabase auth integration (placeholder)
+- ✅ Teacher verification checkbox
 - ✅ Responsive design
+- ✅ Favicon and branding
 
 ### Coming Soon (v2)
-- [ ] Stripe checkout integration
+- [ ] Complete Supabase OAuth setup
+- [ ] Stripe checkout integration for paid signup
 - [ ] Webhook handling for subscriptions
-- [ ] Export history display
-- [ ] Password reset flow
-- [ ] Email verification
-- [ ] Customer portal for billing management
+- [ ] Trial expiration handling (14 days)
+- [ ] Export history display in account page
+- [ ] Stripe Customer Portal for billing management
+- [ ] Subscription upgrade/downgrade (monthly ↔ annual)
+- [ ] Google Sheets integration status in account page
 
 ## Content Updates
 
 ### To Update Landing Page:
 - Edit `index.html`
-- Update sections: hero, features, testimonials, pricing, FAQ
+- Sections available: hero, how-it-works, features, testimonials, pricing, FAQ, privacy
+- Privacy policy is integrated into main page (section id: `privacy`)
 - Deploy: `vercel --prod`
+
+### To Update Pricing:
+- Update amounts in `index.html` pricing section
+- Update `STRIPE_MONTHLY_PRICE_ID` and `STRIPE_ANNUAL_PRICE_ID` environment variables
+- Update FAQ section if pricing changes
+
+### To Update Screenshots/Videos:
+- Replace files in `images/` directory
+- Videos should be MP4 format (H.264 codec) for best compatibility
+- Keep file sizes small for fast loading (under 3MB per video)
+- Current files:
+  - `button.png` - DocLens button in Google Docs
+  - `playback.mp4` - Writing process playback demo
+  - `export.mp4` - Grading and export demo
 
 ### To Update Styles:
 - Edit CSS files in `styles/`

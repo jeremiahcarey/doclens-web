@@ -40,10 +40,10 @@
         and streamline your grading workflow.
       </p>
       <div class="hero-cta">
-        <a href="/auth/signup.html" class="btn btn-primary btn-large">Start Free 14-Day Trial</a>
-        <a href="https://chrome.google.com/webstore" class="btn btn-secondary btn-large">Install Extension</a>
+        <a href="/auth/signup.html?trial=true" class="btn btn-primary btn-large">Try Free for 14 Days</a>
+        <a href="/auth/signup.html" class="btn btn-secondary btn-large">Sign Up Now</a>
       </div>
-      <p class="hero-note">For teachers only • No credit card required for trial</p>
+      <p class="hero-note">For teachers only • No credit card required for free trial</p>
     </div>
   </section>
 
@@ -189,9 +189,22 @@
       <div class="pricing-grid">
         <div class="pricing-card pricing-card-highlight">
           <h3 class="pricing-title">Teacher Plan</h3>
-          <div class="pricing-price">
-            <span class="pricing-amount">$9.99</span>
-            <span class="pricing-period">/month</span>
+          <div class="pricing-options">
+            <div class="pricing-option">
+              <div class="pricing-price">
+                <span class="pricing-amount">$5</span>
+                <span class="pricing-period">/month</span>
+              </div>
+              <p class="pricing-billing">Billed monthly</p>
+            </div>
+            <div class="pricing-divider">or</div>
+            <div class="pricing-option">
+              <div class="pricing-price">
+                <span class="pricing-amount">$40</span>
+                <span class="pricing-period">/year</span>
+              </div>
+              <p class="pricing-billing">Save $20 annually</p>
+            </div>
           </div>
           <ul class="pricing-features">
             <li>✓ Unlimited document analysis</li>
@@ -200,8 +213,12 @@
             <li>✓ Writing pattern analysis</li>
             <li>✓ Priority email support</li>
           </ul>
-          <a href="/auth/signup.html" class="btn btn-primary btn-block">Start 14-Day Free Trial</a>
-          <p class="pricing-note">No credit card required</p>
+          <div class="pricing-cta">
+            <a href="/auth/signup.html?trial=true" class="btn btn-primary btn-block">Try Free for 14 Days</a>
+            <p class="pricing-cta-divider">or</p>
+            <a href="/auth/signup.html" class="btn btn-secondary btn-block">Sign Up Now</a>
+          </div>
+          <p class="pricing-note">No credit card required for free trial</p>
         </div>
 
         <div class="pricing-card">
@@ -273,11 +290,20 @@
         </div>
 
         <div class="faq-item">
+          <h3 class="faq-question">What's the difference between "Try Free" and "Sign Up Now"?</h3>
+          <p class="faq-answer">
+            "Try Free for 14 Days" gives you full access with no credit card required. After 14 days, you'll be prompted to subscribe.
+            "Sign Up Now" requires a credit card upfront and starts your subscription immediately, but you can cancel anytime with no penalty.
+            Both options give you full access to all features.
+          </p>
+        </div>
+
+        <div class="faq-item">
           <h3 class="faq-question">What happens after my free trial?</h3>
           <p class="faq-answer">
             After 14 days, you'll be prompted to subscribe. Your trial includes full access to all features.
-            If you choose not to subscribe, you won't lose any data—you just won't be able to export new grades
-            until you subscribe.
+            If you choose not to subscribe, you won't lose any data—you just won't be able to analyze new documents
+            or export grades until you subscribe.
           </p>
         </div>
 
@@ -292,9 +318,140 @@
         <div class="faq-item">
           <h3 class="faq-question">Is there a discount for teachers?</h3>
           <p class="faq-answer">
-            Our standard pricing of $9.99/month is already teacher-focused. For schools and districts
+            Our standard pricing of $5/month or $40/year is already teacher-focused and affordable. For schools and districts
             looking to license DocLens for multiple teachers, we offer volume pricing. Contact us at
             support@doclens.net for a quote.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Privacy Policy -->
+  <section id="privacy" class="section">
+    <div class="container">
+      <h2 class="section-title">Privacy Policy</h2>
+      <div class="privacy-content">
+        <div class="privacy-section">
+          <h3>Core Privacy Principles</h3>
+          <p>
+            <strong>No document data is collected by or sent to any remote service by the extension.</strong>
+            All document analysis happens locally in your browser. Document content, revision history,
+            and analysis results never leave your computer unless you explicitly choose to export grades
+            and comments to Google Sheets.
+          </p>
+        </div>
+
+        <div class="privacy-section">
+          <h3>What Data We Collect</h3>
+          <p>
+            DocLens collects minimal data to provide the service:
+          </p>
+          <ul>
+            <li>Your email address for account management and subscription purposes</li>
+            <li>A unique browser identifier for free trial and subscription management</li>
+            <li>Document IDs (not content) of documents you've exported to prevent duplicate exports</li>
+          </ul>
+          <p>
+            We do <strong>not</strong> collect:
+          </p>
+          <ul>
+            <li>Document content or text</li>
+            <li>Revision history data</li>
+            <li>Student information or email addresses</li>
+            <li>Grades or comments you enter</li>
+            <li>Analysis results or writing pattern data</li>
+          </ul>
+        </div>
+
+        <div class="privacy-section">
+          <h3>How We Use Your Data</h3>
+          <p>
+            We use your email address solely for:
+          </p>
+          <ul>
+            <li>Managing your account and subscription</li>
+            <li>Tracking your free trial period</li>
+            <li>Sending important service updates (we do not send marketing emails)</li>
+          </ul>
+          <p>
+            Document IDs are used only to prevent accidental duplicate exports to Google Sheets.
+          </p>
+        </div>
+
+        <div class="privacy-section">
+          <h3>Third-Party Sharing</h3>
+          <p>
+            We never share, sell, or provide your personal information to third parties for marketing purposes.
+            Your email address and account data remain private and are used only for providing the DocLens service.
+          </p>
+        </div>
+
+        <div class="privacy-section">
+          <h3>Analytics</h3>
+          <p>
+            DocLens uses Google Analytics with anonymized data that excludes personally identifiable information.
+            This helps us understand how teachers use the extension to improve the product.
+          </p>
+        </div>
+
+        <div class="privacy-section">
+          <h3>Access Controls</h3>
+          <p>
+            DocLens only works on Google Docs where you have edit permissions. The extension uses Google's
+            standard OAuth authentication to access documents. You remain in full control of which documents
+            you analyze.
+          </p>
+        </div>
+
+        <div class="privacy-section">
+          <h3>Data Security</h3>
+          <p>
+            Because all document analysis happens locally in your browser, your students' work is protected
+            by design. We follow industry-standard security practices for the minimal account data we do store.
+          </p>
+        </div>
+
+        <div class="privacy-section">
+          <h3>School & District Privacy Agreements</h3>
+          <p>
+            Custom Data Privacy Agreements are available for school districts that require specific privacy
+            terms. Contact <a href="mailto:support@doclens.net">support@doclens.net</a> for district-specific
+            privacy agreements.
+          </p>
+        </div>
+
+        <div class="privacy-section">
+          <h3>Your Rights</h3>
+          <p>
+            You have the right to:
+          </p>
+          <ul>
+            <li>Access your account data at any time</li>
+            <li>Request deletion of your account and associated data</li>
+            <li>Cancel your subscription without penalty</li>
+          </ul>
+          <p>
+            To exercise these rights, contact us at <a href="mailto:support@doclens.net">support@doclens.net</a>.
+          </p>
+        </div>
+
+        <div class="privacy-section">
+          <h3>Developer Access</h3>
+          <p>
+            No one, including DocLens developers, has access to any document you analyze or its revision history.
+            All processing happens entirely on your computer.
+          </p>
+        </div>
+
+        <div class="privacy-section">
+          <h3>Changes to This Policy</h3>
+          <p>
+            We may update this privacy policy from time to time. We will notify users of any material changes
+            via email. Continued use of DocLens after changes constitutes acceptance of the updated policy.
+          </p>
+          <p class="privacy-updated">
+            Last updated: January 9, 2026
           </p>
         </div>
       </div>
@@ -327,8 +484,7 @@
           <ul class="footer-links">
             <li><a href="#faq">FAQ</a></li>
             <li><a href="mailto:support@doclens.net">Contact Support</a></li>
-            <li><a href="/privacy.html">Privacy Policy</a></li>
-            <li><a href="/terms.html">Terms of Service</a></li>
+            <li><a href="#privacy">Privacy Policy</a></li>
           </ul>
         </div>
 
@@ -336,7 +492,8 @@
           <h4 class="footer-title">Account</h4>
           <ul class="footer-links">
             <li><a href="/auth/signin.html">Sign In</a></li>
-            <li><a href="/auth/signup.html">Start Free Trial</a></li>
+            <li><a href="/auth/signup.html?trial=true">Try Free for 14 Days</a></li>
+            <li><a href="/auth/signup.html">Sign Up</a></li>
             <li><a href="/account">Manage Subscription</a></li>
           </ul>
         </div>
