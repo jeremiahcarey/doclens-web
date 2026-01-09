@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In - DocLens</title>
+  <link rel="stylesheet" href="/styles/main.css">
+  <link rel="stylesheet" href="/styles/auth.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="auth-container">
+    <div class="auth-card">
+      <a href="/" class="auth-logo">DocLens</a>
+
+      <h1 class="auth-title">Welcome Back</h1>
+      <p class="auth-subtitle">Sign in to your account</p>
+
+      <div id="error-message" class="error-message" style="display: none;"></div>
+
+      <form id="signin-form" class="auth-form">
+        <div class="form-group">
+          <label for="email" class="form-label">Email</label>
+          <input
+            type="email"
+            id="email"
+            class="form-input"
+            placeholder="your.email@school.edu"
+            required
+            autocomplete="email"
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="password" class="form-label">Password</label>
+          <input
+            type="password"
+            id="password"
+            class="form-input"
+            placeholder="Your password"
+            required
+            autocomplete="current-password"
+          >
+        </div>
+
+        <div class="form-group form-group-row">
+          <label class="checkbox-label">
+            <input type="checkbox" id="remember-me">
+            <span>Remember me</span>
+          </label>
+          <a href="/auth/reset-password.html" class="text-link">Forgot password?</a>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block" id="submit-btn">
+          Sign In
+        </button>
+      </form>
+
+      <p class="auth-footer">
+        Don't have an account? <a href="/auth/signup.html">Start free trial</a>
+      </p>
+    </div>
+  </div>
+
+  <script type="module">
+    // TODO: Replace with your actual Supabase project URL and anon key
+    const SUPABASE_URL = 'YOUR_SUPABASE_URL'
+    const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY'
+
+    // For now, we'll use a placeholder
+    // Uncomment this when Supabase is set up:
+    // import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
+    // const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+
+    const form = document.getElementById('signin-form')
+    const errorMessage = document.getElementById('error-message')
+    const submitBtn = document.getElementById('submit-btn')
+
+    function showError(message) {
+      errorMessage.textContent = message
+      errorMessage.style.display = 'block'
+    }
+
+    function hideError() {
+      errorMessage.style.display = 'none'
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault()
+      hideError()
+
+      const email = document.getElementById('email').value
+      const password = document.getElementById('password').value
+
+      // Disable button during submission
+      submitBtn.disabled = true
+      submitBtn.textContent = 'Signing in...'
+
+      try {
+        // TODO: Uncomment when Supabase is set up
+        /*
+        const { data, error } = await supabase.auth.signInWithPassword({
+          email,
+          password
+        })
+
+        if (error) throw error
+
+        // Get the session token
+        const session = data.session
+
+        if (session) {
+          // Try to send token to extension
+          if (typeof chrome !== 'undefined' && chrome.runtime) {
+            chrome.runtime.sendMessage(
+              { type: 'AUTH_TOKEN', token: session.access_token },
+              (response) => {
+                if (chrome.runtime.lastError) {
+                  // Extension not installed, redirect to account page
+                  window.location.href = '/account/'
+                } else {
+                  // Success! Show message and close
+                  alert('Signed in successfully! You can close this tab.')
+                  setTimeout(() => window.close(), 2000)
+                }
+              }
+            )
+          } else {
+            // Not in extension context, redirect to account page
+            window.location.href = '/account/'
+          }
+        }
+        */
+
+        // TEMPORARY: Just show success message until Supabase is set up
+        alert('Sign in form submitted! (Supabase not yet configured)')
+        console.log('Would sign in:', email)
+
+      } catch (error) {
+        console.error('Signin error:', error)
+        showError(error.message || 'Invalid email or password')
+      } finally {
+        submitBtn.disabled = false
+        submitBtn.textContent = 'Sign In'
+      }
+    })
+  </script>
+</body>
+</html>

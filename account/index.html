@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Account - DocLens</title>
+  <link rel="stylesheet" href="/styles/main.css">
+  <link rel="stylesheet" href="/styles/account.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="container">
+      <div class="nav-content">
+        <a href="/" class="logo">DocLens</a>
+        <ul class="nav-links">
+          <li><a href="/account">Account</a></li>
+          <li><a href="#" id="sign-out-btn">Sign Out</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="account-container">
+    <div class="container">
+      <h1 class="account-title">Your Account</h1>
+
+      <!-- Loading State -->
+      <div id="loading-state" class="loading-state">
+        <p>Loading account information...</p>
+      </div>
+
+      <!-- Not Signed In -->
+      <div id="not-signed-in" class="account-card" style="display: none;">
+        <h2>Please Sign In</h2>
+        <p>You need to sign in to view your account.</p>
+        <a href="/auth/signin.html" class="btn btn-primary">Sign In</a>
+      </div>
+
+      <!-- Account Info -->
+      <div id="account-content" style="display: none;">
+        <!-- Subscription Status -->
+        <div class="account-card">
+          <h2 class="card-title">Subscription Status</h2>
+          <div id="subscription-info">
+            <!-- Will be populated by JavaScript -->
+          </div>
+        </div>
+
+        <!-- Account Details -->
+        <div class="account-card">
+          <h2 class="card-title">Account Details</h2>
+          <div class="account-detail">
+            <label>Email</label>
+            <p id="user-email">Loading...</p>
+          </div>
+          <div class="account-detail">
+            <label>Member Since</label>
+            <p id="member-since">Loading...</p>
+          </div>
+        </div>
+
+        <!-- Manage Subscription -->
+        <div class="account-card">
+          <h2 class="card-title">Manage Subscription</h2>
+          <p>Update your payment method or cancel your subscription.</p>
+          <button id="manage-billing-btn" class="btn btn-secondary">
+            Manage Billing
+          </button>
+        </div>
+
+        <!-- Export History -->
+        <div class="account-card">
+          <h2 class="card-title">Export History</h2>
+          <p>View your recent grade exports.</p>
+          <div id="export-history">
+            <!-- Will be populated by JavaScript -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    // TODO: Replace with your actual Supabase project URL and anon key
+    const SUPABASE_URL = 'YOUR_SUPABASE_URL'
+    const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY'
+
+    // For now, we'll use a placeholder
+    // Uncomment this when Supabase is set up:
+    // import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
+    // const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+
+    const loadingState = document.getElementById('loading-state')
+    const notSignedIn = document.getElementById('not-signed-in')
+    const accountContent = document.getElementById('account-content')
+
+    async function loadAccountInfo() {
+      try {
+        // TODO: Uncomment when Supabase is set up
+        /*
+        const { data: { session }, error } = await supabase.auth.getSession()
+
+        if (error || !session) {
+          // Not signed in
+          loadingState.style.display = 'none'
+          notSignedIn.style.display = 'block'
+          return
+        }
+
+        // Fetch subscription info
+        const { data: subscription } = await supabase
+          .from('subscriptions')
+          .select('*')
+          .eq('user_id', session.user.id)
+          .single()
+
+        // Populate UI
+        document.getElementById('user-email').textContent = session.user.email
+        document.getElementById('member-since').textContent = new Date(session.user.created_at).toLocaleDateString()
+
+        // Show subscription status
+        const statusEl = document.getElementById('subscription-info')
+        if (subscription) {
+          const status = subscription.status
+          const trialEndsAt = subscription.trial_ends_at
+          const periodEnd = subscription.current_period_end
+
+          if (status === 'trialing') {
+            statusEl.innerHTML = `
+              <div class="status-badge status-trial">
+                <strong>Free Trial</strong>
+                <p>Your trial ends on ${new Date(trialEndsAt).toLocaleDateString()}</p>
+              </div>
+            `
+          } else if (status === 'active') {
+            statusEl.innerHTML = `
+              <div class="status-badge status-active">
+                <strong>Active Subscription</strong>
+                <p>Renews on ${new Date(periodEnd).toLocaleDateString()}</p>
+              </div>
+            `
+          } else if (status === 'canceled') {
+            statusEl.innerHTML = `
+              <div class="status-badge status-canceled">
+                <strong>Subscription Canceled</strong>
+                <p>Access until ${new Date(periodEnd).toLocaleDateString()}</p>
+              </div>
+            `
+          }
+        }
+
+        // Show content
+        loadingState.style.display = 'none'
+        accountContent.style.display = 'block'
+        */
+
+        // TEMPORARY: Show demo content
+        loadingState.style.display = 'none'
+        accountContent.style.display = 'block'
+        document.getElementById('user-email').textContent = 'demo@example.com'
+        document.getElementById('member-since').textContent = new Date().toLocaleDateString()
+        document.getElementById('subscription-info').innerHTML = `
+          <div class="status-badge status-trial">
+            <strong>Demo Mode</strong>
+            <p>Supabase not yet configured</p>
+          </div>
+        `
+        document.getElementById('export-history').innerHTML = '<p>No exports yet</p>'
+
+      } catch (error) {
+        console.error('Error loading account:', error)
+        loadingState.innerHTML = '<p class="error">Error loading account information</p>'
+      }
+    }
+
+    // Sign out
+    document.getElementById('sign-out-btn').addEventListener('click', async (e) => {
+      e.preventDefault()
+      // TODO: Uncomment when Supabase is set up
+      // await supabase.auth.signOut()
+      window.location.href = '/auth/signin.html'
+    })
+
+    // Manage billing
+    document.getElementById('manage-billing-btn').addEventListener('click', async () => {
+      // TODO: Create Stripe customer portal session
+      alert('Billing management coming soon!')
+    })
+
+    // Load account info on page load
+    loadAccountInfo()
+  </script>
+</body>
+</html>

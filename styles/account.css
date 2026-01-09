@@ -1,0 +1,135 @@
+/* ========================================
+   Account Page Styles
+   ======================================== */
+
+.account-container {
+  padding: var(--spacing-lg) 0;
+  min-height: calc(100vh - 80px);
+}
+
+.account-title {
+  font-size: 2.5rem;
+  margin-bottom: var(--spacing-lg);
+  color: var(--color-text);
+}
+
+.loading-state {
+  text-align: center;
+  padding: var(--spacing-xl);
+  color: var(--color-text-light);
+}
+
+.account-card {
+  background: white;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: var(--spacing-lg);
+  margin-bottom: var(--spacing-md);
+}
+
+.card-title {
+  font-size: 1.5rem;
+  margin-bottom: var(--spacing-md);
+  color: var(--color-text);
+}
+
+.account-detail {
+  margin-bottom: var(--spacing-md);
+  padding-bottom: var(--spacing-md);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.account-detail:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.account-detail label {
+  display: block;
+  font-weight: 600;
+  color: var(--color-text-light);
+  font-size: 0.9rem;
+  margin-bottom: var(--spacing-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.account-detail p {
+  font-size: 1.1rem;
+  color: var(--color-text);
+}
+
+.status-badge {
+  padding: var(--spacing-md);
+  border-radius: 8px;
+  border-left: 4px solid;
+}
+
+.status-badge strong {
+  display: block;
+  font-size: 1.1rem;
+  margin-bottom: var(--spacing-xs);
+}
+
+.status-badge p {
+  color: var(--color-text-light);
+  margin: 0;
+}
+
+.status-trial {
+  background: #dbeafe;
+  border-left-color: var(--color-primary);
+}
+
+.status-active {
+  background: #d1fae5;
+  border-left-color: #10b981;
+}
+
+.status-canceled {
+  background: #fee2e2;
+  border-left-color: #ef4444;
+}
+
+.status-past-due {
+  background: #fef3c7;
+  border-left-color: #f59e0b;
+}
+
+.export-history-list {
+  list-style: none;
+  padding: 0;
+}
+
+.export-item {
+  padding: var(--spacing-sm);
+  border-bottom: 1px solid var(--color-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.export-item:last-child {
+  border-bottom: none;
+}
+
+.export-info {
+  flex: 1;
+}
+
+.export-doc-title {
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 0.25rem;
+}
+
+.export-date {
+  font-size: 0.9rem;
+  color: var(--color-text-light);
+}
+
+.export-link {
+  color: var(--color-primary);
+  font-size: 0.9rem;
+}

@@ -1,0 +1,22 @@
+{
+  "name": "doclens-web",
+  "version": "1.0.0",
+  "description": "Website and authentication pages for DocLens Chrome extension",
+  "main": "index.html",
+  "scripts": {
+    "dev": "vercel dev",
+    "deploy": "vercel --prod"
+  },
+  "keywords": [
+    "doclens",
+    "google-docs",
+    "education",
+    "teaching"
+  ],
+  "author": "DocLens",
+  "license": "MIT",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.39.0",
+    "stripe": "^14.10.0"
+  }
+}

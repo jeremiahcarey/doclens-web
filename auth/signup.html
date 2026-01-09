@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up - DocLens</title>
+  <link rel="stylesheet" href="/styles/main.css">
+  <link rel="stylesheet" href="/styles/auth.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="auth-container">
+    <div class="auth-card">
+      <a href="/" class="auth-logo">DocLens</a>
+
+      <h1 class="auth-title">Start Your Free Trial</h1>
+      <p class="auth-subtitle">14 days free, no credit card required</p>
+
+      <div id="error-message" class="error-message" style="display: none;"></div>
+
+      <form id="signup-form" class="auth-form">
+        <div class="form-group">
+          <label for="email" class="form-label">Email</label>
+          <input
+            type="email"
+            id="email"
+            class="form-input"
+            placeholder="your.email@school.edu"
+            required
+            autocomplete="email"
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="password" class="form-label">Password</label>
+          <input
+            type="password"
+            id="password"
+            class="form-input"
+            placeholder="At least 8 characters"
+            required
+            minlength="8"
+            autocomplete="new-password"
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="confirm-password" class="form-label">Confirm Password</label>
+          <input
+            type="password"
+            id="confirm-password"
+            class="form-input"
+            placeholder="Re-enter your password"
+            required
+            minlength="8"
+            autocomplete="new-password"
+          >
+        </div>
+
+        <div class="form-group">
+          <label class="checkbox-label">
+            <input type="checkbox" id="teacher-confirm" required>
+            <span>I am a teacher or educator</span>
+          </label>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block" id="submit-btn">
+          Create Account
+        </button>
+      </form>
+
+      <p class="auth-footer">
+        Already have an account? <a href="/auth/signin.html">Sign in</a>
+      </p>
+
+      <p class="auth-terms">
+        By signing up, you agree to our <a href="/terms.html">Terms of Service</a>
+        and <a href="/privacy.html">Privacy Policy</a>
+      </p>
+    </div>
+  </div>
+
+  <script type="module">
+    // TODO: Replace with your actual Supabase project URL and anon key
+    const SUPABASE_URL = 'YOUR_SUPABASE_URL'
+    const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY'
+
+    // For now, we'll use a placeholder
+    // Uncomment this when Supabase is set up:
+    // import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
+    // const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+
+    const form = document.getElementById('signup-form')
+    const errorMessage = document.getElementById('error-message')
+    const submitBtn = document.getElementById('submit-btn')
+
+    function showError(message) {
+      errorMessage.textContent = message
+      errorMessage.style.display = 'block'
+    }
+
+    function hideError() {
+      errorMessage.style.display = 'none'
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault()
+      hideError()
+
+      const email = document.getElementById('email').value
+      const password = document.getElementById('password').value
+      const confirmPassword = document.getElementById('confirm-password').value
+      const teacherConfirm = document.getElementById('teacher-confirm').checked
+
+      // Validation
+      if (password !== confirmPassword) {
+        showError('Passwords do not match')
+        return
+      }
+
+      if (!teacherConfirm) {
+        showError('Please confirm you are a teacher or educator')
+        return
+      }
+
+      // Disable button during submission
+      submitBtn.disabled = true
+      submitBtn.textContent = 'Creating account...'
+
+      try {
+        // TODO: Uncomment when Supabase is set up
+        /*
+        const { data, error } = await supabase.auth.signUp({
+          email,
+          password,
+          options: {
+            data: {
+              is_teacher: true
+            }
+          }
+        })
+
+        if (error) throw error
+
+        // Get the session token
+        const session = data.session
+
+        if (session) {
+          // Try to send token to extension
+          if (typeof chrome !== 'undefined' && chrome.runtime) {
+            chrome.runtime.sendMessage(
+              { type: 'AUTH_TOKEN', token: session.access_token },
+              (response) => {
+                if (chrome.runtime.lastError) {
+                  // Extension not installed, show message
+                  showError('Extension not detected. Please install DocLens extension first.')
+                } else {
+                  // Success! Show message and redirect
+                  alert('Account created successfully! You can close this tab.')
+                  setTimeout(() => window.close(), 2000)
+                }
+              }
+            )
+          } else {
+            // Not in extension context, redirect to account page
+            window.location.href = '/account/?new=true'
+          }
+        } else {
+          showError('Please check your email to verify your account.')
+        }
+        */
+
+        // TEMPORARY: Just show success message until Supabase is set up
+        alert('Sign up form submitted! (Supabase not yet configured)')
+        console.log('Would create account for:', email)
+
+      } catch (error) {
+        console.error('Signup error:', error)
+        showError(error.message || 'An error occurred. Please try again.')
+      } finally {
+        submitBtn.disabled = false
+        submitBtn.textContent = 'Create Account'
+      }
+    })
+  </script>
+</body>
+</html>
