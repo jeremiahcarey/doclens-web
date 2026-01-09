@@ -4,7 +4,8 @@
   "description": "Website and authentication pages for DocLens Chrome extension",
   "main": "index.html",
   "scripts": {
-    "dev": "vercel dev",
+    "dev": "npx serve . -p 3000",
+    "dev:vercel": "vercel dev",
     "deploy": "vercel --prod"
   },
   "keywords": [
