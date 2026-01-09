@@ -1,9 +1,4 @@
 {
-  "version": 2,
-  "buildCommand": "npm install",
-  "devCommand": "npx serve .",
-  "installCommand": "npm install",
-  "framework": null,
   "headers": [
     {
       "source": "/(.*)",
