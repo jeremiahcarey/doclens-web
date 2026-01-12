@@ -40,16 +40,6 @@
             Your Google credentials are never stored by DocLens.
           </p>
         </div>
-
-        <div class="form-group" id="teacher-confirm-group" style="display: none;">
-          <label class="checkbox-label">
-            <input type="checkbox" id="teacher-confirm">
-            <span>I confirm I am a teacher or educator</span>
-          </label>
-          <button type="button" class="btn btn-primary btn-block" id="confirm-btn" style="margin-top: 1rem;">
-            Continue
-          </button>
-        </div>
       </div>
 
       <p class="auth-footer">
@@ -93,9 +83,6 @@
 
     const googleSigninBtn = document.getElementById('google-signin-btn')
     const errorMessage = document.getElementById('error-message')
-    const teacherConfirmGroup = document.getElementById('teacher-confirm-group')
-    const teacherConfirm = document.getElementById('teacher-confirm')
-    const confirmBtn = document.getElementById('confirm-btn')
 
     function showError(message) {
       errorMessage.textContent = message
@@ -109,6 +96,7 @@
     googleSigninBtn.addEventListener('click', async () => {
       hideError()
       googleSigninBtn.disabled = true
+      googleSigninBtn.textContent = 'Signing in...'
 
       try {
         // TODO: Uncomment when Supabase is set up
@@ -127,28 +115,7 @@
         if (error) throw error
         */
 
-        // TEMPORARY: Show teacher confirmation for now
-        googleSigninBtn.style.display = 'none'
-        teacherConfirmGroup.style.display = 'block'
-
-      } catch (error) {
-        console.error('Google signin error:', error)
-        showError(error.message || 'An error occurred. Please try again.')
-        googleSigninBtn.disabled = false
-      }
-    })
-
-    confirmBtn.addEventListener('click', async () => {
-      if (!teacherConfirm.checked) {
-        showError('Please confirm you are a teacher or educator')
-        return
-      }
-
-      confirmBtn.disabled = true
-      confirmBtn.textContent = 'Setting up your account...'
-
-      try {
-        // TEMPORARY: Just show success message until backend is set up
+        // TEMPORARY: Show placeholder message until backend is set up
         alert('Google OAuth not yet configured. You would be redirected to Google sign-in.')
         console.log('Signup type:', isTrial ? 'Free Trial' : 'Paid Subscription')
 
@@ -159,11 +126,14 @@
         //   window.location.href = '/account/?checkout=true'
         // }
 
+        googleSigninBtn.disabled = false
+        googleSigninBtn.textContent = buttonText.textContent
+
       } catch (error) {
-        console.error('Confirmation error:', error)
+        console.error('Google signin error:', error)
         showError(error.message || 'An error occurred. Please try again.')
-        confirmBtn.disabled = false
-        confirmBtn.textContent = 'Continue'
+        googleSigninBtn.disabled = false
+        googleSigninBtn.textContent = buttonText.textContent
       }
     })
   </script>
