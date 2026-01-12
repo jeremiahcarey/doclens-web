@@ -1,510 +1,601 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DocLens - Understand How Students Write</title>
-  <meta name="description" content="DocLens shows teachers the complete writing process behind Google Docs assignments. Watch revisions unfold, analyze writing patterns, and streamline grading.">
-  <link rel="icon" type="image/svg+xml" href="/images/favicon.svg">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
-  <link rel="stylesheet" href="/styles/main.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-</head>
-<body>
-  <!-- Navigation -->
-  <nav class="nav">
-    <div class="container">
-      <div class="nav-content">
-        <a href="/" class="logo">DocLens</a>
-        <ul class="nav-links">
-          <li><a href="#how-it-works">How It Works</a></li>
-          <li><a href="#features">Features</a></li>
-          <li><a href="#pricing">Pricing</a></li>
-          <li><a href="#faq">FAQ</a></li>
-          <li><a href="/auth/signin.html" class="nav-link-signin">Sign In</a></li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-
-  <!-- Hero Section -->
-  <section class="hero">
-    <div class="container">
-      <h1 class="hero-title">Understand How Students Write</h1>
-      <p class="hero-subtitle">
-        DocLens reveals the complete writing process behind any Google Doc.
-        Watch revisions unfold from start to finish, analyze writing patterns,
-        and streamline your grading workflow.
-      </p>
-      <div class="hero-cta">
-        <a href="/auth/signup.html?trial=true" class="btn btn-primary btn-large">Try Free for 14 Days</a>
-        <a href="/auth/signup.html" class="btn btn-secondary btn-large">Sign Up Now</a>
-      </div>
-      <p class="hero-note">For teachers only • No credit card required for free trial</p>
-    </div>
-  </section>
-
-  <!-- How It Works -->
-  <section id="how-it-works" class="section section-gray">
-    <div class="container">
-      <h2 class="section-title">How It Works</h2>
-      <div class="steps">
-        <div class="step">
-          <div class="step-number">1</div>
-          <h3 class="step-title">Open Any Google Doc</h3>
-          <p class="step-description">
-            Click the DocLens button in the Google Docs toolbar. Works on any document where you have edit access.
-          </p>
-          <div class="step-image">
-            <img src="/images/button.png" alt="DocLens button in Google Docs toolbar" class="step-screenshot">
-          </div>
-        </div>
-
-        <div class="step">
-          <div class="step-number">2</div>
-          <h3 class="step-title">Watch the Writing Process</h3>
-          <p class="step-description">
-            Play back the entire writing history from blank page to final draft. See every edit, revision, and pause.
-          </p>
-          <div class="step-image">
-            <video autoplay loop muted playsinline class="step-video">
-              <source src="/images/playback.mp4" type="video/mp4">
-              Your browser does not support the video tag.
-            </video>
-          </div>
-        </div>
-
-        <div class="step">
-          <div class="step-number">3</div>
-          <h3 class="step-title">Analyze & Grade</h3>
-          <p class="step-description">
-            Review writing patterns, add grades and comments, then export everything to Google Sheets with one click.
-          </p>
-          <div class="step-image">
-            <video autoplay loop muted playsinline class="step-video">
-              <source src="/images/export.mp4" type="video/mp4">
-              Your browser does not support the video tag.
-            </video>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Features -->
-  <section id="features" class="section">
-    <div class="container">
-      <h2 class="section-title">Features</h2>
-      <div class="features-grid">
-        <div class="feature">
-          <div class="feature-icon">▶️</div>
-          <h3 class="feature-title">Complete Playback</h3>
-          <p class="feature-description">
-            Watch the writing process unfold from start to finish. Playback begins with a blank document and shows every insertion and deletion.
-          </p>
-        </div>
-
-        <div class="feature">
-          <div class="feature-icon">📊</div>
-          <h3 class="feature-title">Writing Pattern Analysis</h3>
-          <p class="feature-description">
-            See writing sessions, large insertions, revision depth, and deletion rates. All analysis is factual and descriptive.
-          </p>
-        </div>
-
-        <div class="feature">
-          <div class="feature-icon">📝</div>
-          <h3 class="feature-title">Streamlined Grading</h3>
-          <p class="feature-description">
-            Enter grades and comments directly in DocLens, then export to Google Sheets with one click. No more switching between tabs.
-          </p>
-        </div>
-
-        <div class="feature">
-          <div class="feature-icon">🔒</div>
-          <h3 class="feature-title">Privacy by Design</h3>
-          <p class="feature-description">
-            All analysis runs locally in your browser. Document content is never sent to external servers. You control what data you export.
-          </p>
-        </div>
-
-        <div class="feature">
-          <div class="feature-icon">⏱️</div>
-          <h3 class="feature-title">Session Tracking</h3>
-          <p class="feature-description">
-            See when students worked on the document, how long each session lasted, and total active writing time.
-          </p>
-        </div>
-
-        <div class="feature">
-          <div class="feature-icon">📤</div>
-          <h3 class="feature-title">Google Sheets Export</h3>
-          <p class="feature-description">
-            Export grades, comments, and analysis summaries to Google Sheets. Automatically tracks last-used spreadsheet for quick exports.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Testimonials -->
-  <section class="section section-gray">
-    <div class="container">
-      <h2 class="section-title">What Teachers Say</h2>
-      <div class="testimonials">
-        <div class="testimonial">
-          <p class="testimonial-quote">
-            "DocLens helps me understand my students' writing processes in a way I never could before.
-            It's not about catching cheating—it's about understanding how they think and work."
-          </p>
-          <p class="testimonial-author">— High School English Teacher</p>
-        </div>
-
-        <div class="testimonial">
-          <p class="testimonial-quote">
-            "The grading export feature saves me hours every week. I can review their work, add feedback,
-            and have everything organized in one spreadsheet."
-          </p>
-          <p class="testimonial-author">— College Writing Instructor</p>
-        </div>
-
-        <div class="testimonial">
-          <p class="testimonial-quote">
-            "I appreciate that DocLens focuses on descriptive analysis rather than accusations.
-            It gives me information I can use for meaningful conversations with students."
-          </p>
-          <p class="testimonial-author">— Middle School Teacher</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Pricing -->
-  <section id="pricing" class="section">
-    <div class="container">
-      <h2 class="section-title">Simple, Transparent Pricing</h2>
-      <div class="pricing-grid">
-        <div class="pricing-card pricing-card-highlight">
-          <h3 class="pricing-title">Teacher Plan</h3>
-          <div class="pricing-options">
-            <div class="pricing-option">
-              <div class="pricing-price">
-                <span class="pricing-amount">$5</span>
-                <span class="pricing-period">/month</span>
-              </div>
-              <p class="pricing-billing">Billed monthly</p>
-            </div>
-            <div class="pricing-divider">or</div>
-            <div class="pricing-option">
-              <div class="pricing-price">
-                <span class="pricing-amount">$40</span>
-                <span class="pricing-period">/year</span>
-              </div>
-              <p class="pricing-billing">Save $20 annually</p>
-            </div>
-          </div>
-          <ul class="pricing-features">
-            <li>✓ Unlimited document analysis</li>
-            <li>✓ Unlimited Google Sheets exports</li>
-            <li>✓ Complete revision playback</li>
-            <li>✓ Writing pattern analysis</li>
-            <li>✓ Priority email support</li>
-          </ul>
-          <div class="pricing-cta">
-            <a href="/auth/signup.html?trial=true" class="btn btn-primary btn-block">Try Free for 14 Days</a>
-            <p class="pricing-cta-divider">or</p>
-            <a href="/auth/signup.html" class="btn btn-secondary btn-block">Sign Up Now</a>
-          </div>
-          <p class="pricing-note">No credit card required for free trial</p>
-        </div>
-
-        <div class="pricing-card">
-          <h3 class="pricing-title">School / District</h3>
-          <div class="pricing-price">
-            <span class="pricing-amount">Custom</span>
-          </div>
-          <ul class="pricing-features">
-            <li>✓ Volume pricing for multiple teachers</li>
-            <li>✓ Custom data privacy agreements</li>
-            <li>✓ Purchase order payment options</li>
-            <li>✓ Dedicated support</li>
-            <li>✓ Admin dashboard (coming soon)</li>
-          </ul>
-          <a href="mailto:support@doclens.net" class="btn btn-secondary btn-block">Contact Us</a>
-          <p class="pricing-note">Email for a quote</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FAQ -->
-  <section id="faq" class="section section-gray">
-    <div class="container">
-      <h2 class="section-title">Frequently Asked Questions</h2>
-      <div class="faq-list">
-        <div class="faq-item">
-          <h3 class="faq-question">How does DocLens work?</h3>
-          <p class="faq-answer">
-            DocLens accesses Google Docs' revision history to reconstruct the writing process.
-            It shows you every edit, insertion, and deletion that happened during the document's creation.
-            All analysis happens in your browser—document content is never sent to our servers.
-          </p>
-        </div>
-
-        <div class="faq-item">
-          <h3 class="faq-question">Can DocLens detect AI writing or plagiarism?</h3>
-          <p class="faq-answer">
-            DocLens is not designed to detect AI usage or plagiarism. It provides factual information
-            about the writing process—like when sessions occurred, where large blocks of text were inserted,
-            and how much revision happened. Teachers interpret this information in context with other
-            assessment factors.
-          </p>
-        </div>
-
-        <div class="faq-item">
-          <h3 class="faq-question">What data does DocLens collect?</h3>
-          <p class="faq-answer">
-            DocLens collects minimal data. We store your account information and track which documents
-            you've exported (document ID only, not content) to prevent duplicate exports. All document
-            analysis happens locally in your browser. We never see or store student work, grades, or comments.
-          </p>
-        </div>
-
-        <div class="faq-item">
-          <h3 class="faq-question">Do I need edit access to the document?</h3>
-          <p class="faq-answer">
-            Yes. DocLens requires edit access to view revision history. If students share documents with
-            "Can edit" permissions, you'll be able to use DocLens on those documents.
-          </p>
-        </div>
-
-        <div class="faq-item">
-          <h3 class="faq-question">Does this work with Google Classroom?</h3>
-          <p class="faq-answer">
-            Yes! If students submit Google Docs through Classroom and you have edit access,
-            you can use DocLens on those documents. Open the document from Classroom and click the DocLens button.
-          </p>
-        </div>
-
-        <div class="faq-item">
-          <h3 class="faq-question">What's the difference between "Try Free" and "Sign Up Now"?</h3>
-          <p class="faq-answer">
-            "Try Free for 14 Days" gives you full access with no credit card required. After 14 days, you'll be prompted to subscribe.
-            "Sign Up Now" requires a credit card upfront and starts your subscription immediately, but you can cancel anytime with no penalty.
-            Both options give you full access to all features.
-          </p>
-        </div>
-
-        <div class="faq-item">
-          <h3 class="faq-question">What happens after my free trial?</h3>
-          <p class="faq-answer">
-            After 14 days, you'll be prompted to subscribe. Your trial includes full access to all features.
-            If you choose not to subscribe, you won't lose any data—you just won't be able to analyze new documents
-            or export grades until you subscribe.
-          </p>
-        </div>
-
-        <div class="faq-item">
-          <h3 class="faq-question">Can I cancel anytime?</h3>
-          <p class="faq-answer">
-            Yes. You can cancel your subscription at any time from your account page.
-            You'll retain access until the end of your current billing period.
-          </p>
-        </div>
-
-        <div class="faq-item">
-          <h3 class="faq-question">Is there a discount for teachers?</h3>
-          <p class="faq-answer">
-            Our standard pricing of $5/month or $40/year is already teacher-focused and affordable. For schools and districts
-            looking to license DocLens for multiple teachers, we offer volume pricing. Contact us at
-            support@doclens.net for a quote.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Privacy Policy -->
-  <section id="privacy" class="section">
-    <div class="container">
-      <h2 class="section-title">Privacy Policy</h2>
-      <div class="privacy-content">
-        <div class="privacy-section">
-          <h3>Core Privacy Principles</h3>
-          <p>
-            <strong>No document data is collected by or sent to any remote service by the extension.</strong>
-            All document analysis happens locally in your browser. Document content, revision history,
-            and analysis results never leave your computer unless you explicitly choose to export grades
-            and comments to Google Sheets.
-          </p>
-        </div>
-
-        <div class="privacy-section">
-          <h3>What Data We Collect</h3>
-          <p>
-            DocLens collects minimal data to provide the service:
-          </p>
-          <ul>
-            <li>Your email address for account management and subscription purposes</li>
-            <li>A unique browser identifier for free trial and subscription management</li>
-            <li>Document IDs (not content) of documents you've exported to prevent duplicate exports</li>
-          </ul>
-          <p>
-            We do <strong>not</strong> collect:
-          </p>
-          <ul>
-            <li>Document content or text</li>
-            <li>Revision history data</li>
-            <li>Student information or email addresses</li>
-            <li>Grades or comments you enter</li>
-            <li>Analysis results or writing pattern data</li>
-          </ul>
-        </div>
-
-        <div class="privacy-section">
-          <h3>How We Use Your Data</h3>
-          <p>
-            We use your email address solely for:
-          </p>
-          <ul>
-            <li>Managing your account and subscription</li>
-            <li>Tracking your free trial period</li>
-            <li>Sending important service updates (we do not send marketing emails)</li>
-          </ul>
-          <p>
-            Document IDs are used only to prevent accidental duplicate exports to Google Sheets.
-          </p>
-        </div>
-
-        <div class="privacy-section">
-          <h3>Third-Party Sharing</h3>
-          <p>
-            We never share, sell, or provide your personal information to third parties for marketing purposes.
-            Your email address and account data remain private and are used only for providing the DocLens service.
-          </p>
-        </div>
-
-        <div class="privacy-section">
-          <h3>Analytics</h3>
-          <p>
-            DocLens uses Google Analytics with anonymized data that excludes personally identifiable information.
-            This helps us understand how teachers use the extension to improve the product.
-          </p>
-        </div>
-
-        <div class="privacy-section">
-          <h3>Access Controls</h3>
-          <p>
-            DocLens only works on Google Docs where you have edit permissions. The extension uses Google's
-            standard OAuth authentication to access documents. You remain in full control of which documents
-            you analyze.
-          </p>
-        </div>
-
-        <div class="privacy-section">
-          <h3>Data Security</h3>
-          <p>
-            Because all document analysis happens locally in your browser, your students' work is protected
-            by design. We follow industry-standard security practices for the minimal account data we do store.
-          </p>
-        </div>
-
-        <div class="privacy-section">
-          <h3>School & District Privacy Agreements</h3>
-          <p>
-            Custom Data Privacy Agreements are available for school districts that require specific privacy
-            terms. Contact <a href="mailto:support@doclens.net">support@doclens.net</a> for district-specific
-            privacy agreements.
-          </p>
-        </div>
-
-        <div class="privacy-section">
-          <h3>Your Rights</h3>
-          <p>
-            You have the right to:
-          </p>
-          <ul>
-            <li>Access your account data at any time</li>
-            <li>Request deletion of your account and associated data</li>
-            <li>Cancel your subscription without penalty</li>
-          </ul>
-          <p>
-            To exercise these rights, contact us at <a href="mailto:support@doclens.net">support@doclens.net</a>.
-          </p>
-        </div>
-
-        <div class="privacy-section">
-          <h3>Developer Access</h3>
-          <p>
-            No one, including DocLens developers, has access to any document you analyze or its revision history.
-            All processing happens entirely on your computer.
-          </p>
-        </div>
-
-        <div class="privacy-section">
-          <h3>Changes to This Policy</h3>
-          <p>
-            We may update this privacy policy from time to time. We will notify users of any material changes
-            via email. Continued use of DocLens after changes constitutes acceptance of the updated policy.
-          </p>
-          <p class="privacy-updated">
-            Last updated: January 9, 2026
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-content">
-        <div class="footer-section">
-          <h4 class="footer-title">DocLens</h4>
-          <p class="footer-text">
-            Understand the writing process behind Google Docs assignments.
-          </p>
-        </div>
-
-        <div class="footer-section">
-          <h4 class="footer-title">Product</h4>
-          <ul class="footer-links">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DocLens - Understand How Students Write</title>
+    <meta
+      name="description"
+      content="DocLens shows teachers the complete writing process behind Google Docs assignments. Watch revisions unfold, analyze writing patterns, and streamline grading."
+    />
+    <link rel="icon" type="image/svg+xml" href="/images/favicon.svg" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/images/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/images/favicon-16x16.png"
+    />
+    <link rel="stylesheet" href="/styles/main.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="nav">
+      <div class="container">
+        <div class="nav-content">
+          <a href="/" class="logo">DocLens</a>
+          <ul class="nav-links">
             <li><a href="#how-it-works">How It Works</a></li>
             <li><a href="#features">Features</a></li>
             <li><a href="#pricing">Pricing</a></li>
-            <li><a href="https://chrome.google.com/webstore">Install Extension</a></li>
-          </ul>
-        </div>
-
-        <div class="footer-section">
-          <h4 class="footer-title">Support</h4>
-          <ul class="footer-links">
             <li><a href="#faq">FAQ</a></li>
-            <li><a href="mailto:support@doclens.net">Contact Support</a></li>
-            <li><a href="#privacy">Privacy Policy</a></li>
-          </ul>
-        </div>
-
-        <div class="footer-section">
-          <h4 class="footer-title">Account</h4>
-          <ul class="footer-links">
-            <li><a href="/auth/signin.html">Sign In</a></li>
-            <li><a href="/auth/signup.html?trial=true">Try Free for 14 Days</a></li>
-            <li><a href="/auth/signup.html">Sign Up</a></li>
-            <li><a href="/account">Manage Subscription</a></li>
+            <li>
+              <a href="/auth/signin.html" class="nav-link-signin">Sign In</a>
+            </li>
           </ul>
         </div>
       </div>
+    </nav>
 
-      <div class="footer-bottom">
-        <p>&copy; 2026 DocLens. All rights reserved.</p>
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container">
+        <h1 class="hero-title">Understand How Students Write</h1>
+        <p class="hero-subtitle">
+          DocLens reveals the complete writing process behind any Google Doc.
+          Watch revisions unfold from start to finish, analyze writing patterns,
+          and streamline your grading workflow.
+        </p>
+        <div class="hero-cta">
+          <a
+            href="/auth/signup.html?trial=true"
+            class="btn btn-primary btn-large"
+            >Try Free for 14 Days</a
+          >
+          <a href="/auth/signup.html" class="btn btn-secondary btn-large"
+            >Sign Up Now</a
+          >
+        </div>
+        <p class="hero-note">
+          For teachers only • No credit card required for free trial
+        </p>
       </div>
-    </div>
-  </footer>
+    </section>
 
-  <script src="/scripts/nav.js"></script>
-</body>
+    <!-- How It Works -->
+    <section id="how-it-works" class="section section-gray">
+      <div class="container">
+        <h2 class="section-title">How It Works</h2>
+        <div class="steps">
+          <div class="step">
+            <div class="step-number">1</div>
+            <h3 class="step-title">Open Any Google Doc</h3>
+            <p class="step-description">
+              Click the DocLens button in the Google Docs toolbar. Works on any
+              document where you have edit access.
+            </p>
+            <div class="step-image">
+              <video autoplay loop muted playsinline class="step-video">
+                <source src="/images/button.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-number">2</div>
+            <h3 class="step-title">Watch the Writing Process</h3>
+            <p class="step-description">
+              Play back the entire writing history from blank page to final
+              draft. See every edit, revision, and pause.
+            </p>
+            <div class="step-image">
+              <video autoplay loop muted playsinline class="step-video">
+                <source src="/images/playback.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-number">3</div>
+            <h3 class="step-title">Analyze & Grade</h3>
+            <p class="step-description">
+              Review writing patterns, add grades and comments, then export
+              everything to Google Sheets with one click.
+            </p>
+            <div class="step-image">
+              <video autoplay loop muted playsinline class="step-video">
+                <source src="/images/export.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section id="features" class="section">
+      <div class="container">
+        <h2 class="section-title">Features</h2>
+        <div class="features-grid">
+          <div class="feature">
+            <div class="feature-icon">▶️</div>
+            <h3 class="feature-title">Complete Playback</h3>
+            <p class="feature-description">
+              Watch the writing process unfold from start to finish. Playback
+              begins with a blank document and shows every insertion and
+              deletion.
+            </p>
+          </div>
+
+          <div class="feature">
+            <div class="feature-icon">📊</div>
+            <h3 class="feature-title">Writing Pattern Analysis</h3>
+            <p class="feature-description">
+              See writing sessions, large insertions, revision depth, and
+              deletion rates. All analysis is factual and descriptive.
+            </p>
+          </div>
+
+          <div class="feature">
+            <div class="feature-icon">📝</div>
+            <h3 class="feature-title">Streamlined Grading</h3>
+            <p class="feature-description">
+              Enter grades and comments directly in DocLens, then export to
+              Google Sheets with one click. No more switching between tabs.
+            </p>
+          </div>
+
+          <div class="feature">
+            <div class="feature-icon">🔒</div>
+            <h3 class="feature-title">Privacy by Design</h3>
+            <p class="feature-description">
+              All analysis runs locally in your browser. Document content is
+              never sent to external servers. You control what data you export.
+            </p>
+          </div>
+
+          <div class="feature">
+            <div class="feature-icon">⏱️</div>
+            <h3 class="feature-title">Session Tracking</h3>
+            <p class="feature-description">
+              See when students worked on the document, how long each session
+              lasted, and total active writing time.
+            </p>
+          </div>
+
+          <div class="feature">
+            <div class="feature-icon">📤</div>
+            <h3 class="feature-title">Google Sheets Export</h3>
+            <p class="feature-description">
+              Export grades, comments, and analysis summaries to Google Sheets.
+              Automatically tracks last-used spreadsheet for quick exports.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="section section-gray">
+      <div class="container">
+        <h2 class="section-title">What Teachers Say</h2>
+        <div class="testimonials">
+          <div class="testimonial">
+            <p class="testimonial-quote">
+              "DocLens helps me understand my students' writing processes in a
+              way I never could before. It's not about catching cheating—it's
+              about understanding how they think and work."
+            </p>
+            <p class="testimonial-author">— High School English Teacher</p>
+          </div>
+
+          <div class="testimonial">
+            <p class="testimonial-quote">
+              "The grading export feature saves me hours every week. I can
+              review their work, add feedback, and have everything organized in
+              one spreadsheet."
+            </p>
+            <p class="testimonial-author">— College Writing Instructor</p>
+          </div>
+
+          <div class="testimonial">
+            <p class="testimonial-quote">
+              "I appreciate that DocLens focuses on descriptive analysis rather
+              than accusations. It gives me information I can use for meaningful
+              conversations with students."
+            </p>
+            <p class="testimonial-author">— Middle School Teacher</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing -->
+    <section id="pricing" class="section">
+      <div class="container">
+        <h2 class="section-title">Simple, Transparent Pricing</h2>
+        <div class="pricing-grid">
+          <div class="pricing-card pricing-card-highlight">
+            <h3 class="pricing-title">Teacher Plan</h3>
+            <div class="pricing-options">
+              <div class="pricing-option">
+                <div class="pricing-price">
+                  <span class="pricing-amount">$5</span>
+                  <span class="pricing-period">/month</span>
+                </div>
+                <p class="pricing-billing">Billed monthly</p>
+              </div>
+              <div class="pricing-divider">or</div>
+              <div class="pricing-option">
+                <div class="pricing-price">
+                  <span class="pricing-amount">$40</span>
+                  <span class="pricing-period">/year</span>
+                </div>
+                <p class="pricing-billing">Save $20 annually</p>
+              </div>
+            </div>
+            <ul class="pricing-features">
+              <li>✓ Unlimited document analysis</li>
+              <li>✓ Unlimited Google Sheets exports</li>
+              <li>✓ Complete revision playback</li>
+              <li>✓ Writing pattern analysis</li>
+              <li>✓ Priority email support</li>
+            </ul>
+            <div class="pricing-cta">
+              <a
+                href="/auth/signup.html?trial=true"
+                class="btn btn-primary btn-block"
+                >Try Free for 14 Days</a
+              >
+              <p class="pricing-cta-divider">or</p>
+              <a href="/auth/signup.html" class="btn btn-secondary btn-block"
+                >Sign Up Now</a
+              >
+            </div>
+            <p class="pricing-note">No credit card required for free trial</p>
+          </div>
+
+          <div class="pricing-card">
+            <h3 class="pricing-title">School / District</h3>
+            <div class="pricing-price">
+              <span class="pricing-amount">Custom</span>
+            </div>
+            <ul class="pricing-features">
+              <li>✓ Volume pricing for multiple teachers</li>
+              <li>✓ Custom data privacy agreements</li>
+              <li>✓ Purchase order payment options</li>
+              <li>✓ Dedicated support</li>
+              <li>✓ Admin dashboard (coming soon)</li>
+            </ul>
+            <a
+              href="mailto:support@doclens.net"
+              class="btn btn-secondary btn-block"
+              >Contact Us</a
+            >
+            <p class="pricing-note">Email for a quote</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="section section-gray">
+      <div class="container">
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <div class="faq-list">
+          <div class="faq-item">
+            <h3 class="faq-question">How does DocLens work?</h3>
+            <p class="faq-answer">
+              DocLens accesses Google Docs' revision history to reconstruct the
+              writing process. It shows you every edit, insertion, and deletion
+              that happened during the document's creation. All analysis happens
+              in your browser—document content is never sent to our servers.
+            </p>
+          </div>
+
+          <div class="faq-item">
+            <h3 class="faq-question">
+              Can DocLens detect AI writing or plagiarism?
+            </h3>
+            <p class="faq-answer">
+              DocLens is not designed to detect AI usage or plagiarism. It
+              provides factual information about the writing process—like when
+              sessions occurred, where large blocks of text were inserted, and
+              how much revision happened. Teachers interpret this information in
+              context with other assessment factors.
+            </p>
+          </div>
+
+          <div class="faq-item">
+            <h3 class="faq-question">What data does DocLens collect?</h3>
+            <p class="faq-answer">
+              DocLens collects minimal data. We store your account information
+              and track which documents you've exported (document ID only, not
+              content) to prevent duplicate exports. All document analysis
+              happens locally in your browser. We never see or store student
+              work, grades, or comments.
+            </p>
+          </div>
+
+          <div class="faq-item">
+            <h3 class="faq-question">Do I need edit access to the document?</h3>
+            <p class="faq-answer">
+              Yes. DocLens requires edit access to view revision history. If
+              students share documents with "Can edit" permissions, you'll be
+              able to use DocLens on those documents.
+            </p>
+          </div>
+
+          <div class="faq-item">
+            <h3 class="faq-question">Does this work with Google Classroom?</h3>
+            <p class="faq-answer">
+              Yes! If students submit Google Docs through Classroom and you have
+              edit access, you can use DocLens on those documents. Open the
+              document from Classroom and click the DocLens button.
+            </p>
+          </div>
+
+          <div class="faq-item">
+            <h3 class="faq-question">
+              What's the difference between "Try Free" and "Sign Up Now"?
+            </h3>
+            <p class="faq-answer">
+              "Try Free for 14 Days" gives you full access with no credit card
+              required. After 14 days, you'll be prompted to subscribe. "Sign Up
+              Now" requires a credit card upfront and starts your subscription
+              immediately, but you can cancel anytime with no penalty. Both
+              options give you full access to all features.
+            </p>
+          </div>
+
+          <div class="faq-item">
+            <h3 class="faq-question">What happens after my free trial?</h3>
+            <p class="faq-answer">
+              After 14 days, you'll be prompted to subscribe. Your trial
+              includes full access to all features. If you choose not to
+              subscribe, you won't lose any data—you just won't be able to
+              analyze new documents or export grades until you subscribe.
+            </p>
+          </div>
+
+          <div class="faq-item">
+            <h3 class="faq-question">Can I cancel anytime?</h3>
+            <p class="faq-answer">
+              Yes. You can cancel your subscription at any time from your
+              account page. You'll retain access until the end of your current
+              billing period.
+            </p>
+          </div>
+
+          <div class="faq-item">
+            <h3 class="faq-question">Is there a discount for teachers?</h3>
+            <p class="faq-answer">
+              Our standard pricing of $5/month or $40/year is already
+              teacher-focused and affordable. For schools and districts looking
+              to license DocLens for multiple teachers, we offer volume pricing.
+              Contact us at support@doclens.net for a quote.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Privacy Policy -->
+    <section id="privacy" class="section">
+      <div class="container">
+        <h2 class="section-title">Privacy Policy</h2>
+        <div class="privacy-content">
+          <div class="privacy-section">
+            <h3>Core Privacy Principles</h3>
+            <p>
+              <strong
+                >No document data is collected by or sent to any remote service
+                by the extension.</strong
+              >
+              All document analysis happens locally in your browser. Document
+              content, revision history, and analysis results never leave your
+              computer unless you explicitly choose to export grades and
+              comments to Google Sheets.
+            </p>
+          </div>
+
+          <div class="privacy-section">
+            <h3>What Data We Collect</h3>
+            <p>DocLens collects minimal data to provide the service:</p>
+            <ul>
+              <li>
+                Your email address for account management and subscription
+                purposes
+              </li>
+              <li>
+                A unique browser identifier for free trial and subscription
+                management
+              </li>
+              <li>
+                Document IDs (not content) of documents you've exported to
+                prevent duplicate exports
+              </li>
+            </ul>
+            <p>We do <strong>not</strong> collect:</p>
+            <ul>
+              <li>Document content or text</li>
+              <li>Revision history data</li>
+              <li>Student information or email addresses</li>
+              <li>Grades or comments you enter</li>
+              <li>Analysis results or writing pattern data</li>
+            </ul>
+          </div>
+
+          <div class="privacy-section">
+            <h3>How We Use Your Data</h3>
+            <p>We use your email address solely for:</p>
+            <ul>
+              <li>Managing your account and subscription</li>
+              <li>Tracking your free trial period</li>
+              <li>
+                Sending important service updates (we do not send marketing
+                emails)
+              </li>
+            </ul>
+            <p>
+              Document IDs are used only to prevent accidental duplicate exports
+              to Google Sheets.
+            </p>
+          </div>
+
+          <div class="privacy-section">
+            <h3>Third-Party Sharing</h3>
+            <p>
+              We never share, sell, or provide your personal information to
+              third parties for marketing purposes. Your email address and
+              account data remain private and are used only for providing the
+              DocLens service.
+            </p>
+          </div>
+
+          <div class="privacy-section">
+            <h3>Analytics</h3>
+            <p>
+              DocLens uses Google Analytics with anonymized data that excludes
+              personally identifiable information. This helps us understand how
+              teachers use the extension to improve the product.
+            </p>
+          </div>
+
+          <div class="privacy-section">
+            <h3>Access Controls</h3>
+            <p>
+              DocLens only works on Google Docs where you have edit permissions.
+              The extension uses Google's standard OAuth authentication to
+              access documents. You remain in full control of which documents
+              you analyze.
+            </p>
+          </div>
+
+          <div class="privacy-section">
+            <h3>Data Security</h3>
+            <p>
+              Because all document analysis happens locally in your browser,
+              your students' work is protected by design. We follow
+              industry-standard security practices for the minimal account data
+              we do store.
+            </p>
+          </div>
+
+          <div class="privacy-section">
+            <h3>School & District Privacy Agreements</h3>
+            <p>
+              Custom Data Privacy Agreements are available for school districts
+              that require specific privacy terms. Contact
+              <a href="mailto:support@doclens.net">support@doclens.net</a> for
+              district-specific privacy agreements.
+            </p>
+          </div>
+
+          <div class="privacy-section">
+            <h3>Your Rights</h3>
+            <p>You have the right to:</p>
+            <ul>
+              <li>Access your account data at any time</li>
+              <li>Request deletion of your account and associated data</li>
+              <li>Cancel your subscription without penalty</li>
+            </ul>
+            <p>
+              To exercise these rights, contact us at
+              <a href="mailto:support@doclens.net">support@doclens.net</a>.
+            </p>
+          </div>
+
+          <div class="privacy-section">
+            <h3>Developer Access</h3>
+            <p>
+              No one, including DocLens developers, has access to any document
+              you analyze or its revision history. All processing happens
+              entirely on your computer.
+            </p>
+          </div>
+
+          <div class="privacy-section">
+            <h3>Changes to This Policy</h3>
+            <p>
+              We may update this privacy policy from time to time. We will
+              notify users of any material changes via email. Continued use of
+              DocLens after changes constitutes acceptance of the updated
+              policy.
+            </p>
+            <p class="privacy-updated">Last updated: January 9, 2026</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-section">
+            <h4 class="footer-title">DocLens</h4>
+            <p class="footer-text">
+              Understand the writing process behind Google Docs assignments.
+            </p>
+          </div>
+
+          <div class="footer-section">
+            <h4 class="footer-title">Product</h4>
+            <ul class="footer-links">
+              <li><a href="#how-it-works">How It Works</a></li>
+              <li><a href="#features">Features</a></li>
+              <li><a href="#pricing">Pricing</a></li>
+              <li>
+                <a href="https://chrome.google.com/webstore"
+                  >Install Extension</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div class="footer-section">
+            <h4 class="footer-title">Support</h4>
+            <ul class="footer-links">
+              <li><a href="#faq">FAQ</a></li>
+              <li><a href="mailto:support@doclens.net">Contact Support</a></li>
+              <li><a href="#privacy">Privacy Policy</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-section">
+            <h4 class="footer-title">Account</h4>
+            <ul class="footer-links">
+              <li><a href="/auth/signin.html">Sign In</a></li>
+              <li>
+                <a href="/auth/signup.html?trial=true">Try Free for 14 Days</a>
+              </li>
+              <li><a href="/auth/signup.html">Sign Up</a></li>
+              <li><a href="/account">Manage Subscription</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>&copy; 2026 DocLens. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="/scripts/nav.js"></script>
+  </body>
 </html>
