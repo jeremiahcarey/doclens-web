@@ -1,6 +1,6 @@
 # DocLens Web - Implementation TODO
 
-Last updated: January 9, 2026
+Last updated: January 12, 2026
 
 ## Current Status
 
@@ -10,58 +10,75 @@ Last updated: January 9, 2026
 - Google OAuth authentication pages
 - Dual signup flow (trial vs. paid)
 - Pricing: $5/month or $40/year
+- Deployed at doclens.net with custom domain
 
 **Backend/Integration: 🚧 In Progress**
+- ✅ Supabase project created
+- ✅ Google OAuth client created (Web Application)
+- ✅ Supabase credentials obtained and in .env.local
+- ✅ lib/supabase.js configured
+- ✅ Database tables created (profiles, subscriptions, exported_documents)
+- ✅ Row Level Security (RLS) policies set up
+- ✅ Auto-trigger for profile creation on signup
+- ✅ Secret key obtained and added to .env.local
+- ✅ API files updated to use modern secret key
+- ❌ Auth pages show "Coming Soon" (need to activate)
+- ❌ API endpoints commented out (need to implement)
+- ❌ Stripe not set up yet
 
 ---
 
 ## Priority 1: Authentication (Required for MVP)
 
 ### Supabase Setup
-- [ ] Create Supabase project
-- [ ] Configure Google OAuth provider in Supabase
-  - [ ] Set up Google Cloud Console OAuth credentials
-  - [ ] Configure authorized redirect URIs
-  - [ ] Add client ID and secret to Supabase
-- [ ] Update auth pages with Supabase credentials
-  - [ ] `auth/signup.html` - Add URL and anon key
-  - [ ] `auth/signin.html` - Add URL and anon key
-  - [ ] `account/index.html` - Add URL and anon key
+- [x] Create Supabase project
+- [x] Configure Google OAuth provider in Supabase
+  - [x] Set up Google Cloud Console OAuth credentials
+  - [x] Configure authorized redirect URIs
+  - [x] Add client ID and secret to Supabase
+- [x] Get Supabase credentials (URL and anon key)
+- [x] Create lib/supabase.js and configure
+- [ ] Update auth pages to activate OAuth (currently show "Coming Soon")
+  - [ ] `auth/signup.html` - Remove placeholder, uncomment Supabase code
+  - [ ] `auth/signin.html` - Remove placeholder, uncomment Supabase code
+  - [ ] `auth/callback.html` - Create callback handler
 - [ ] Test Google OAuth flow end-to-end
   - [ ] Trial signup (no CC)
   - [ ] Paid signup (with CC)
   - [ ] Sign in
 
 ### Database Schema
-- [ ] Create `profiles` table
+- [x] Create `profiles` table
   ```sql
   - id (uuid, references auth.users)
   - email (text)
   - is_teacher (boolean)
   - created_at (timestamp)
   ```
-- [ ] Create `subscriptions` table
+- [x] Create `subscriptions` table
   ```sql
   - id (uuid, primary key)
   - user_id (uuid, references profiles)
   - stripe_customer_id (text)
   - stripe_subscription_id (text)
-  - status (text) - 'trial', 'active', 'canceled', 'expired'
+  - status (text) - 'trial', 'active', 'canceled', 'expired', 'past_due'
   - plan_type (text) - 'monthly' or 'annual'
   - trial_ends_at (timestamp)
   - current_period_end (timestamp)
   - created_at (timestamp)
+  - updated_at (timestamp)
   ```
-- [ ] Create `exported_documents` table
+- [x] Create `exported_documents` table
   ```sql
   - id (uuid, primary key)
   - user_id (uuid, references profiles)
   - document_id (text)
   - exported_at (timestamp)
   ```
-- [ ] Set up Row Level Security (RLS) policies
-  - [ ] Users can only read/write their own data
-  - [ ] Service role can access everything
+- [x] Set up Row Level Security (RLS) policies
+  - [x] Users can only read/write their own data
+  - [x] Secret key bypasses RLS (for API operations)
+- [x] Create auto-trigger for profile creation on signup
 
 ---
 
