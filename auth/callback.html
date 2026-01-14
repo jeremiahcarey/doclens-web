@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Authenticating - DocLens</title>
+  <link rel="icon" type="image/svg+xml" href="/images/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="stylesheet" href="/styles/main.css">
+  <link rel="stylesheet" href="/styles/auth.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    .loading-spinner {
+      border: 3px solid #f3f4f6;
+      border-top: 3px solid #2563eb;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 20px;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .status-message {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .success-icon {
+      font-size: 48px;
+      color: #10b981;
+      margin-bottom: 16px;
+    }
+    .error-icon {
+      font-size: 48px;
+      color: #ef4444;
+      margin-bottom: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div class="auth-container">
+    <div class="auth-card">
+      <a href="/" class="auth-logo">DocLens</a>
+
+      <div id="loading-section" class="status-message">
+        <div class="loading-spinner"></div>
+        <h1 class="auth-title">Completing sign in...</h1>
+        <p class="auth-subtitle">Please wait while we set up your account</p>
+      </div>
+
+      <div id="success-section" class="status-message" style="display: none;">
+        <div class="success-icon">✓</div>
+        <h1 class="auth-title">Welcome to DocLens!</h1>
+        <p class="auth-subtitle" id="success-message">Your account is ready</p>
+        <div class="auth-form">
+          <button id="close-btn" class="btn-google" style="margin-top: 20px;">
+            <span>Continue</span>
+          </button>
+        </div>
+      </div>
+
+      <div id="error-section" class="status-message" style="display: none;">
+        <div class="error-icon">✕</div>
+        <h1 class="auth-title">Authentication Error</h1>
+        <p class="auth-subtitle" id="error-message">Something went wrong</p>
+        <div class="auth-form">
+          <button id="retry-btn" class="btn-google" style="margin-top: 20px;">
+            <span>Try Again</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
+
+    const SUPABASE_URL = 'https://wtlttppqyppmtkdyuvvt.supabase.co'
+    const SUPABASE_ANON_KEY = 'sb_publishable_hDwJ0Y3PLI3BTNiFwmJXIA_iI9s08cz'
+
+    console.log('Initializing Supabase client...', { SUPABASE_URL, SUPABASE_ANON_KEY: SUPABASE_ANON_KEY.substring(0, 20) + '...' })
+
+    if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+      console.error('Missing Supabase credentials')
+      throw new Error('Supabase configuration is missing')
+    }
+
+    const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+    console.log('Supabase client initialized:', supabase)
+
+    const loadingSection = document.getElementById('loading-section')
+    const successSection = document.getElementById('success-section')
+    const errorSection = document.getElementById('error-section')
+    const successMessage = document.getElementById('success-message')
+    const errorMessage = document.getElementById('error-message')
+    const closeBtn = document.getElementById('close-btn')
+    const retryBtn = document.getElementById('retry-btn')
+
+    // Check if this is a trial signup
+    const urlParams = new URLSearchParams(window.location.search)
+    const isTrial = urlParams.get('trial') === 'true'
+
+    function showSuccess(message) {
+      loadingSection.style.display = 'none'
+      errorSection.style.display = 'none'
+      successSection.style.display = 'block'
+      successMessage.textContent = message
+    }
+
+    function showError(message) {
+      loadingSection.style.display = 'none'
+      successSection.style.display = 'none'
+      errorSection.style.display = 'block'
+      errorMessage.textContent = message
+    }
+
+    async function handleAuthCallback() {
+      try {
+        console.log('Starting auth callback...')
+        console.log('Window hash:', window.location.hash.substring(0, 100) + '...')
+
+        // Extract tokens from URL hash
+        const hashParams = new URLSearchParams(window.location.hash.substring(1))
+        const accessToken = hashParams.get('access_token')
+        const refreshToken = hashParams.get('refresh_token')
+
+        console.log('Extracted tokens:', {
+          accessToken: accessToken ? accessToken.substring(0, 20) + '...' : 'missing',
+          refreshToken: refreshToken ? refreshToken.substring(0, 20) + '...' : 'missing'
+        })
+
+        if (!accessToken) {
+          throw new Error('No access token found in URL')
+        }
+
+        console.log('Setting session in Supabase...')
+        // Set the session in Supabase with the tokens from the URL
+        const { data: { session }, error: sessionError } = await supabase.auth.setSession({
+          access_token: accessToken,
+          refresh_token: refreshToken
+        })
+
+        console.log('Session result:', { session: !!session, error: sessionError })
+
+        if (sessionError) throw sessionError
+        if (!session) throw new Error('Failed to create session')
+
+        const user = session.user
+        const token = session.access_token
+
+        // Create subscription record in database
+        const trialEndsAt = new Date()
+        trialEndsAt.setDate(trialEndsAt.getDate() + 14) // 14 days from now
+
+        const subscriptionData = {
+          user_id: user.id,
+          status: isTrial ? 'trial' : 'active',
+          trial_ends_at: isTrial ? trialEndsAt.toISOString() : null,
+          current_period_end: isTrial ? trialEndsAt.toISOString() : null,
+        }
+
+        // Call API to create subscription
+        const response = await fetch('/api/create-subscription', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify(subscriptionData)
+        })
+
+        if (!response.ok) {
+          const errorData = await response.json()
+          throw new Error(errorData.error || 'Failed to create subscription')
+        }
+
+        // Try to send token to extension (if installed)
+        let extensionConnected = false
+        try {
+          // Get extension ID from meta tag or config (you'll need to add this)
+          // For now, we'll just try to detect if extension is available
+          if (typeof chrome !== 'undefined' && chrome.runtime && chrome.runtime.sendMessage) {
+            // Note: This requires the extension ID to be known
+            // You can add it as a data attribute or environment variable
+            extensionConnected = true
+          }
+        } catch (e) {
+          // Extension not available, that's okay
+          console.log('Extension not detected:', e)
+        }
+
+        // Show success message
+        if (isTrial) {
+          showSuccess('Your 14-day free trial has started!')
+        } else {
+          showSuccess('Your account is ready to use!')
+        }
+
+        // Auto-redirect or close after 2 seconds
+        setTimeout(() => {
+          if (extensionConnected) {
+            window.close()
+          } else {
+            window.location.href = '/'
+          }
+        }, 2000)
+
+      } catch (error) {
+        console.error('Auth callback error:', error)
+        showError(error.message || 'Failed to complete authentication')
+      }
+    }
+
+    // Handle button clicks
+    closeBtn.addEventListener('click', () => {
+      window.close()
+      // If window doesn't close (not opened by extension), redirect
+      setTimeout(() => {
+        window.location.href = '/'
+      }, 100)
+    })
+
+    retryBtn.addEventListener('click', () => {
+      window.location.href = isTrial ? '/auth/signup?trial=true' : '/auth/signin'
+    })
+
+    // Start auth callback handling
+    handleAuthCallback()
+  </script>
+</body>
+</html>

@@ -35,6 +35,11 @@
       "source": "/login",
       "destination": "/auth/signin.html",
       "permanent": false
+    },
+    {
+      "source": "/auth/callback",
+      "destination": "/auth/callback.html",
+      "permanent": false
     }
   ]
 }

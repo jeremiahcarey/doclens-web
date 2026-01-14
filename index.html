@@ -599,5 +599,18 @@
     </footer>
 
     <script src="/scripts/nav.js"></script>
+    <script type="module">
+      // Check if we were redirected here with OAuth tokens
+      // If so, redirect to the callback page with the tokens preserved
+      if (window.location.hash && window.location.hash.includes('access_token')) {
+        const hashParams = new URLSearchParams(window.location.hash.substring(1))
+        const searchParams = new URLSearchParams(window.location.search)
+        const isTrial = searchParams.get('trial') === 'true'
+
+        // Redirect to callback page with tokens in hash and trial parameter
+        const callbackUrl = `/auth/callback.html${isTrial ? '?trial=true' : ''}${window.location.hash}`
+        window.location.href = callbackUrl
+      }
+    </script>
   </body>
 </html>
