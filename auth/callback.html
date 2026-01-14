@@ -154,14 +154,15 @@
         const token = session.access_token
 
         // Create subscription record in database
+        // All new signups get a 14-day trial
         const trialEndsAt = new Date()
         trialEndsAt.setDate(trialEndsAt.getDate() + 14) // 14 days from now
 
         const subscriptionData = {
           user_id: user.id,
-          status: isTrial ? 'trial' : 'active',
-          trial_ends_at: isTrial ? trialEndsAt.toISOString() : null,
-          current_period_end: isTrial ? trialEndsAt.toISOString() : null,
+          status: 'trial',
+          trial_ends_at: trialEndsAt.toISOString(),
+          current_period_end: trialEndsAt.toISOString(),
         }
 
         // Call API to create subscription
@@ -174,10 +175,13 @@
           body: JSON.stringify(subscriptionData)
         })
 
+        const subscriptionResult = await response.json()
+
         if (!response.ok) {
-          const errorData = await response.json()
-          throw new Error(errorData.error || 'Failed to create subscription')
+          throw new Error(subscriptionResult.error || 'Failed to create subscription')
         }
+
+        console.log('Subscription created:', subscriptionResult)
 
         // Try to send token to extension (if installed)
         let extensionConnected = false
@@ -195,10 +199,10 @@
         }
 
         // Show success message
-        if (isTrial) {
-          showSuccess('Your 14-day free trial has started!')
+        if (subscriptionResult.message === 'Subscription already exists') {
+          showSuccess('Welcome back! You\'re already signed in.')
         } else {
-          showSuccess('Your account is ready to use!')
+          showSuccess('Your 14-day free trial has started!')
         }
 
         // Auto-redirect or close after 2 seconds
@@ -226,7 +230,7 @@
     })
 
     retryBtn.addEventListener('click', () => {
-      window.location.href = isTrial ? '/auth/signup?trial=true' : '/auth/signin'
+      window.location.href = isTrial ? '/auth/signup.html?trial=true' : '/auth/signin.html'
     })
 
     // Start auth callback handling
