@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome to DocLens!</title>
+  <link rel="icon" type="image/svg+xml" href="/images/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="stylesheet" href="/styles/main.css">
+  <link rel="stylesheet" href="/styles/auth.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    .success-icon {
+      font-size: 64px;
+      color: #10b981;
+      margin-bottom: 20px;
+    }
+    .success-details {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 8px;
+      padding: 16px;
+      margin: 24px 0;
+      text-align: left;
+    }
+    .success-details p {
+      margin: 8px 0;
+      color: #166534;
+      font-size: 14px;
+    }
+    .next-steps {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-radius: 8px;
+      padding: 20px;
+      margin-top: 24px;
+      text-align: left;
+    }
+    .next-steps h3 {
+      margin: 0 0 12px 0;
+      color: #1e40af;
+      font-size: 16px;
+    }
+    .next-steps ol {
+      margin: 0;
+      padding-left: 20px;
+      color: #1e40af;
+    }
+    .next-steps li {
+      margin-bottom: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="auth-container">
+    <div class="auth-card">
+      <a href="/" class="auth-logo">DocLens</a>
+
+      <div class="success-icon">✓</div>
+      <h1 class="auth-title">Payment Successful!</h1>
+      <p class="auth-subtitle" id="welcome-message">Thank you for subscribing to DocLens.</p>
+
+      <div class="success-details">
+        <p><strong>Your subscription is now active.</strong></p>
+        <p id="plan-details">You have full access to all DocLens features.</p>
+      </div>
+
+      <div class="next-steps">
+        <h3>Get Started:</h3>
+        <ol>
+          <li>Close this tab</li>
+          <li>Open any Google Doc where you have edit access</li>
+          <li>Click the <strong>DocLens</strong> button in the toolbar</li>
+        </ol>
+      </div>
+
+      <div class="auth-form" style="margin-top: 24px;">
+        <button class="btn-google" onclick="window.close()">
+          <span>Close This Tab</span>
+        </button>
+        <a href="https://docs.google.com" class="btn-secondary-link" target="_blank" style="display: block; margin-top: 12px; text-align: center; color: #1967d2; text-decoration: none;">
+          Or open Google Docs →
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
+
+    const SUPABASE_URL = 'https://wtlttppqyppmtkdyuvvt.supabase.co'
+    const SUPABASE_ANON_KEY = 'sb_publishable_hDwJ0Y3PLI3BTNiFwmJXIA_iI9s08cz'
+
+    const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+
+    // Get session to pass auth data to extension
+    async function init() {
+      const { data: { session } } = await supabase.auth.getSession()
+
+      if (session) {
+        // Send auth data to extension via URL (extension's content script will capture it)
+        // This ensures the extension knows about the subscription
+        const currentUrl = new URL(window.location.href)
+        if (!currentUrl.searchParams.has('token')) {
+          currentUrl.searchParams.set('token', session.access_token)
+          currentUrl.searchParams.set('userId', session.user.id)
+          currentUrl.searchParams.set('email', session.user.email)
+          // Redirect with params so extension can capture them
+          window.history.replaceState({}, '', currentUrl.toString())
+        }
+      }
+    }
+
+    init()
+
+    console.log('DocLens: Payment success page loaded. Extension should capture credentials.')
+  </script>
+</body>
+</html>

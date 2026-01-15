@@ -61,6 +61,20 @@
       errorMessage.style.display = 'none'
     }
 
+    // Check for redirect parameter (e.g., coming from pricing page)
+    const urlParams = new URLSearchParams(window.location.search)
+    const redirectTo = urlParams.get('redirect')
+    const plan = urlParams.get('plan')
+
+    // Build callback URL with redirect info
+    let callbackUrl = `${window.location.origin}/auth/callback.html`
+    if (redirectTo) {
+      callbackUrl += `?redirect=${encodeURIComponent(redirectTo)}`
+      if (plan) {
+        callbackUrl += `&plan=${encodeURIComponent(plan)}`
+      }
+    }
+
     googleSigninBtn.addEventListener('click', async () => {
       hideError()
       googleSigninBtn.disabled = true
@@ -72,7 +86,7 @@
         const { data, error } = await supabase.auth.signInWithOAuth({
           provider: 'google',
           options: {
-            redirectTo: `${window.location.origin}/auth/callback.html`,
+            redirectTo: callbackUrl,
             queryParams: {
               access_type: 'offline',
               prompt: 'select_account',

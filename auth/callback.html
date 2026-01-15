@@ -101,9 +101,11 @@
     const closeBtn = document.getElementById('close-btn')
     const retryBtn = document.getElementById('retry-btn')
 
-    // Check if this is a trial signup
+    // Check URL parameters
     const urlParams = new URLSearchParams(window.location.search)
     const isTrial = urlParams.get('trial') === 'true'
+    const redirectTo = urlParams.get('redirect')
+    const selectedPlan = urlParams.get('plan')
 
     function showSuccess(message) {
       loadingSection.style.display = 'none'
@@ -183,36 +185,33 @@
 
         console.log('Subscription created:', subscriptionResult)
 
-        // Try to send token to extension (if installed)
-        let extensionConnected = false
-        try {
-          // Get extension ID from meta tag or config (you'll need to add this)
-          // For now, we'll just try to detect if extension is available
-          if (typeof chrome !== 'undefined' && chrome.runtime && chrome.runtime.sendMessage) {
-            // Note: This requires the extension ID to be known
-            // You can add it as a data attribute or environment variable
-            extensionConnected = true
+        // Determine if returning user
+        const isReturning = subscriptionResult.message === 'Subscription already exists'
+
+        // Check if we need to redirect somewhere specific (e.g., pricing page)
+        if (redirectTo === 'pricing') {
+          // User came from pricing page, redirect back there to complete checkout
+          let pricingUrl = '/pricing.html'
+          if (selectedPlan) {
+            pricingUrl += `?plan=${selectedPlan}`
           }
-        } catch (e) {
-          // Extension not available, that's okay
-          console.log('Extension not detected:', e)
+          console.log('Redirecting to pricing:', pricingUrl)
+          window.location.href = pricingUrl
+          return
         }
 
-        // Show success message
-        if (subscriptionResult.message === 'Subscription already exists') {
-          showSuccess('Welcome back! You\'re already signed in.')
-        } else {
-          showSuccess('Your 14-day free trial has started!')
+        // Default: Redirect to complete page with auth data in URL
+        // The extension's content script will capture these and save to chrome.storage.sync
+        const completeUrl = new URL('/auth/complete.html', window.location.origin)
+        completeUrl.searchParams.set('token', token)
+        completeUrl.searchParams.set('userId', user.id)
+        completeUrl.searchParams.set('email', user.email)
+        if (isReturning) {
+          completeUrl.searchParams.set('returning', 'true')
         }
 
-        // Auto-redirect or close after 2 seconds
-        setTimeout(() => {
-          if (extensionConnected) {
-            window.close()
-          } else {
-            window.location.href = '/'
-          }
-        }, 2000)
+        console.log('Redirecting to:', completeUrl.toString())
+        window.location.href = completeUrl.toString()
 
       } catch (error) {
         console.error('Auth callback error:', error)

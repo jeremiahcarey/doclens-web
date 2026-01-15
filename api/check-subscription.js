@@ -20,9 +20,6 @@
  * }
  */
 
-// TODO: Uncomment and configure when ready to implement
-
-/*
 import { createClient } from '@supabase/supabase-js';
 
 const supabase = createClient(
@@ -93,13 +90,4 @@ export default async function handler(req, res) {
       message: error.message
     });
   }
-}
-*/
-
-// Placeholder response for now
-export default async function handler(req, res) {
-  return res.status(501).json({
-    error: 'Not implemented yet',
-    message: 'See TODO.md for implementation steps'
-  });
 }

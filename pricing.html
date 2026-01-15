@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upgrade - DocLens</title>
+  <meta name="description" content="Upgrade to DocLens to continue analyzing Google Docs and exporting grades.">
+  <link rel="icon" type="image/svg+xml" href="/images/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="stylesheet" href="/styles/main.css">
+  <link rel="stylesheet" href="/styles/auth.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    .pricing-container {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+      background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 100%);
+    }
+
+    .pricing-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .pricing-logo {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 32px;
+      font-weight: 700;
+      color: #1e40af;
+      text-decoration: none;
+      display: block;
+      margin-bottom: 24px;
+    }
+
+    .pricing-title {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 28px;
+      color: #1e293b;
+      margin: 0 0 12px 0;
+    }
+
+    .pricing-subtitle {
+      font-size: 16px;
+      color: #64748b;
+      margin: 0;
+    }
+
+    .pricing-cards {
+      display: flex;
+      gap: 24px;
+      max-width: 700px;
+      width: 100%;
+    }
+
+    .pricing-card {
+      flex: 1;
+      background: white;
+      border-radius: 16px;
+      padding: 32px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      text-align: center;
+      border: 2px solid transparent;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+
+    .pricing-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    }
+
+    .pricing-card.selected {
+      border-color: #2563eb;
+    }
+
+    .pricing-card-badge {
+      background: #dbeafe;
+      color: #1d4ed8;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 20px;
+      display: inline-block;
+      margin-bottom: 16px;
+    }
+
+    .pricing-card-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #334155;
+      margin: 0 0 8px 0;
+    }
+
+    .pricing-card-price {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 48px;
+      font-weight: 700;
+      color: #1e293b;
+      margin: 0;
+    }
+
+    .pricing-card-price span {
+      font-size: 18px;
+      font-weight: 400;
+      color: #64748b;
+    }
+
+    .pricing-card-billing {
+      font-size: 14px;
+      color: #64748b;
+      margin: 8px 0 0 0;
+    }
+
+    .pricing-card-savings {
+      font-size: 14px;
+      color: #059669;
+      font-weight: 500;
+      margin: 4px 0 0 0;
+    }
+
+    .checkout-section {
+      margin-top: 32px;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .checkout-btn {
+      width: 100%;
+      padding: 16px 24px;
+      font-size: 16px;
+      font-weight: 600;
+      background: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .checkout-btn:hover {
+      background: #1d4ed8;
+    }
+
+    .checkout-btn:disabled {
+      background: #94a3b8;
+      cursor: not-allowed;
+    }
+
+    .checkout-note {
+      font-size: 13px;
+      color: #64748b;
+      margin-top: 16px;
+      text-align: center;
+    }
+
+    .checkout-note a {
+      color: #2563eb;
+      text-decoration: none;
+    }
+
+    .checkout-note a:hover {
+      text-decoration: underline;
+    }
+
+    .auth-required {
+      background: #fef3c7;
+      border: 1px solid #fcd34d;
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 24px;
+      text-align: center;
+    }
+
+    .auth-required p {
+      margin: 0 0 12px 0;
+      color: #92400e;
+      font-size: 14px;
+    }
+
+    .auth-required a {
+      color: #2563eb;
+      font-weight: 500;
+    }
+
+    .loading-spinner {
+      border: 3px solid #e2e8f0;
+      border-top: 3px solid #2563eb;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      animation: spin 1s linear infinite;
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 8px;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .error-message {
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      color: #dc2626;
+      padding: 12px;
+      border-radius: 8px;
+      margin-bottom: 16px;
+      font-size: 14px;
+    }
+
+    @media (max-width: 640px) {
+      .pricing-cards {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="pricing-container">
+    <div class="pricing-header">
+      <a href="/" class="pricing-logo">DocLens</a>
+      <h1 class="pricing-title">Upgrade Your Account</h1>
+      <p class="pricing-subtitle">Continue analyzing Google Docs and exporting grades</p>
+    </div>
+
+    <div id="error-container"></div>
+
+    <div id="auth-required-section" class="auth-required" style="display: none;">
+      <p>Please sign in to upgrade your account</p>
+      <a href="/auth/signin.html?redirect=pricing" class="btn btn-primary">Sign In</a>
+    </div>
+
+    <div class="pricing-cards">
+      <div class="pricing-card" id="monthly-card" data-plan="monthly">
+        <div class="pricing-card-title">Monthly</div>
+        <div class="pricing-card-price">$5<span>/mo</span></div>
+        <p class="pricing-card-billing">Billed monthly</p>
+      </div>
+
+      <div class="pricing-card selected" id="annual-card" data-plan="annual">
+        <div class="pricing-card-badge">Best Value</div>
+        <div class="pricing-card-title">Annual</div>
+        <div class="pricing-card-price">$40<span>/yr</span></div>
+        <p class="pricing-card-billing">Billed annually</p>
+        <p class="pricing-card-savings">Save $20 per year</p>
+      </div>
+    </div>
+
+    <div class="checkout-section">
+      <button id="checkout-btn" class="checkout-btn">
+        Continue to Payment
+      </button>
+      <p class="checkout-note">
+        Secure payment powered by Stripe<br>
+        <a href="/#pricing">View full feature list</a> &bull; <a href="mailto:jeremiah@doclens.net">Questions?</a>
+      </p>
+    </div>
+  </div>
+
+  <script type="module">
+    import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
+
+    const SUPABASE_URL = 'https://wtlttppqyppmtkdyuvvt.supabase.co'
+    const SUPABASE_ANON_KEY = 'sb_publishable_hDwJ0Y3PLI3BTNiFwmJXIA_iI9s08cz'
+
+    const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+
+    let selectedPlan = 'annual'
+    let currentUser = null
+
+    // DOM elements
+    const monthlyCard = document.getElementById('monthly-card')
+    const annualCard = document.getElementById('annual-card')
+    const checkoutBtn = document.getElementById('checkout-btn')
+    const authRequiredSection = document.getElementById('auth-required-section')
+    const errorContainer = document.getElementById('error-container')
+
+    // Plan selection
+    monthlyCard.addEventListener('click', () => selectPlan('monthly'))
+    annualCard.addEventListener('click', () => selectPlan('annual'))
+
+    function selectPlan(plan) {
+      selectedPlan = plan
+      monthlyCard.classList.toggle('selected', plan === 'monthly')
+      annualCard.classList.toggle('selected', plan === 'annual')
+    }
+
+    // Check authentication status
+    async function checkAuth() {
+      const { data: { session } } = await supabase.auth.getSession()
+
+      if (session) {
+        currentUser = session.user
+        authRequiredSection.style.display = 'none'
+        checkoutBtn.disabled = false
+      } else {
+        authRequiredSection.style.display = 'block'
+        checkoutBtn.disabled = true
+        checkoutBtn.textContent = 'Sign in to continue'
+      }
+    }
+
+    // Show error
+    function showError(message) {
+      errorContainer.innerHTML = `<div class="error-message">${message}</div>`
+    }
+
+    // Handle checkout
+    checkoutBtn.addEventListener('click', async () => {
+      if (!currentUser) {
+        window.location.href = `/auth/signin.html?redirect=pricing&plan=${selectedPlan}`
+        return
+      }
+
+      // Show loading state
+      checkoutBtn.disabled = true
+      checkoutBtn.innerHTML = '<span class="loading-spinner"></span> Redirecting to checkout...'
+
+      try {
+        // Get session token
+        const { data: { session } } = await supabase.auth.getSession()
+
+        if (!session) {
+          throw new Error('Session expired. Please sign in again.')
+        }
+
+        // Create checkout session
+        const response = await fetch('/api/create-checkout', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${session.access_token}`
+          },
+          body: JSON.stringify({
+            userId: currentUser.id,
+            priceId: selectedPlan,
+            email: currentUser.email
+          })
+        })
+
+        const data = await response.json()
+
+        if (!response.ok) {
+          throw new Error(data.error || 'Failed to create checkout session')
+        }
+
+        // Redirect to Stripe Checkout
+        window.location.href = data.url
+
+      } catch (error) {
+        console.error('Checkout error:', error)
+        showError(error.message)
+        checkoutBtn.disabled = false
+        checkoutBtn.textContent = 'Continue to Payment'
+      }
+    })
+
+    // Initialize
+    checkAuth()
+  </script>
+</body>
+</html>

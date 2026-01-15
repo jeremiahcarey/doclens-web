@@ -5,13 +5,13 @@
  * Method: POST
  *
  * Creates a Stripe checkout session for paid subscriptions.
- * This is called when users choose "Sign Up Now" instead of free trial.
+ * Called when users upgrade from the pricing page.
  *
  * Request Body:
  * {
  *   userId: string,      // Supabase user ID
  *   priceId: string,     // 'monthly' or 'annual'
- *   email: string        // User's Google email
+ *   email: string        // User's email
  * }
  *
  * Response:
@@ -21,9 +21,6 @@
  * }
  */
 
-// TODO: Uncomment and configure when ready to implement
-
-/*
 import Stripe from 'stripe';
 import { createClient } from '@supabase/supabase-js';
 
@@ -52,14 +49,18 @@ export default async function handler(req, res) {
       ? process.env.STRIPE_ANNUAL_PRICE_ID
       : process.env.STRIPE_MONTHLY_PRICE_ID;
 
+    if (!stripePriceId) {
+      return res.status(500).json({ error: 'Stripe price not configured' });
+    }
+
     // Check if user already has a Stripe customer ID
-    const { data: profile } = await supabase
+    const { data: subscription } = await supabase
       .from('subscriptions')
       .select('stripe_customer_id')
       .eq('user_id', userId)
       .single();
 
-    let customerId = profile?.stripe_customer_id;
+    let customerId = subscription?.stripe_customer_id;
 
     // Create Stripe customer if doesn't exist
     if (!customerId) {
@@ -74,11 +75,8 @@ export default async function handler(req, res) {
       // Save customer ID to database
       await supabase
         .from('subscriptions')
-        .upsert({
-          user_id: userId,
-          stripe_customer_id: customerId,
-          status: 'pending'
-        });
+        .update({ stripe_customer_id: customerId })
+        .eq('user_id', userId);
     }
 
     // Create checkout session
@@ -89,16 +87,15 @@ export default async function handler(req, res) {
         quantity: 1,
       }],
       mode: 'subscription',
-      success_url: `${process.env.SITE_URL}/auth/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${process.env.SITE_URL}/auth/signup`,
+      success_url: `${process.env.SITE_URL || 'https://doclens.net'}/auth/success.html?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${process.env.SITE_URL || 'https://doclens.net'}/pricing.html`,
+      metadata: {
+        supabase_user_id: userId
+      },
       subscription_data: {
-        trial_period_days: 14,
         metadata: {
           supabase_user_id: userId
         }
-      },
-      metadata: {
-        supabase_user_id: userId
       }
     });
 
@@ -114,13 +111,4 @@ export default async function handler(req, res) {
       message: error.message
     });
   }
-}
-*/
-
-// Placeholder response for now
-export default async function handler(req, res) {
-  return res.status(501).json({
-    error: 'Not implemented yet',
-    message: 'See TODO.md for implementation steps'
-  });
 }

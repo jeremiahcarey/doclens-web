@@ -1,6 +1,11 @@
 {
   "buildCommand": null,
   "outputDirectory": ".",
+  "functions": {
+    "api/webhook.js": {
+      "maxDuration": 30
+    }
+  },
   "headers": [
     {
       "source": "/(.*)",
@@ -21,6 +26,11 @@
     }
   ],
   "redirects": [
+    {
+      "source": "/pricing",
+      "destination": "/pricing.html",
+      "permanent": false
+    },
     {
       "source": "/signup",
       "destination": "/auth/signup.html",
