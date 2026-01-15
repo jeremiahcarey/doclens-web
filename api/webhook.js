@@ -94,13 +94,21 @@ export default async function handler(req, res) {
         const userId = subscription.metadata.supabase_user_id;
 
         if (userId) {
+          const updateData = {
+            status: subscription.status,
+          };
+
+          // Only add dates if they're valid
+          if (subscription.current_period_end) {
+            updateData.current_period_end = new Date(subscription.current_period_end * 1000).toISOString();
+          }
+          if (subscription.trial_end) {
+            updateData.trial_ends_at = new Date(subscription.trial_end * 1000).toISOString();
+          }
+
           await supabase
             .from('subscriptions')
-            .update({
-              status: subscription.status,
-              current_period_end: new Date(subscription.current_period_end * 1000).toISOString(),
-              trial_ends_at: subscription.trial_end ? new Date(subscription.trial_end * 1000).toISOString() : null,
-            })
+            .update(updateData)
             .eq('stripe_subscription_id', subscription.id);
 
           console.log('Subscription updated:', subscription.id);
