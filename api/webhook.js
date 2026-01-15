@@ -71,20 +71,24 @@ export default async function handler(req, res) {
           // Get subscription details
           const subscription = await stripe.subscriptions.retrieve(subscriptionId);
 
-          // Update database
-          await supabase
+          // Update existing subscription record (don't create new one)
+          const { error: updateError } = await supabase
             .from('subscriptions')
-            .upsert({
-              user_id: userId,
+            .update({
               stripe_customer_id: session.customer,
               stripe_subscription_id: subscriptionId,
               status: 'active',
               plan_type: subscription.items.data[0].price.id === process.env.STRIPE_ANNUAL_PRICE_ID ? 'annual' : 'monthly',
               current_period_end: new Date(subscription.current_period_end * 1000).toISOString(),
               trial_ends_at: subscription.trial_end ? new Date(subscription.trial_end * 1000).toISOString() : null,
-            });
+            })
+            .eq('user_id', userId);
 
-          console.log('Subscription created:', subscriptionId);
+          if (updateError) {
+            console.error('Failed to update subscription:', updateError);
+          } else {
+            console.log('Subscription activated:', subscriptionId);
+          }
         }
         break;
       }
