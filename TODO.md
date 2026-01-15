@@ -1,6 +1,6 @@
 # DocLens Web - Implementation TODO
 
-Last updated: January 12, 2026
+Last updated: January 15, 2026
 
 ## Current Status
 
@@ -9,10 +9,11 @@ Last updated: January 12, 2026
 - Privacy policy integrated
 - Google OAuth authentication pages
 - Dual signup flow (trial vs. paid)
+- Pricing page with plan selection
 - Pricing: $5/month or $40/year
 - Deployed at doclens.net with custom domain
 
-**Backend/Integration: 🚧 In Progress**
+**Backend/Integration: ✅ Complete**
 - ✅ Supabase project created
 - ✅ Google OAuth client created (Web Application)
 - ✅ Supabase credentials obtained and in .env.local
@@ -22,274 +23,154 @@ Last updated: January 12, 2026
 - ✅ Auto-trigger for profile creation on signup
 - ✅ Secret key obtained and added to .env.local
 - ✅ API files updated to use modern secret key
-- ❌ Auth pages show "Coming Soon" (need to activate)
-- ❌ API endpoints commented out (need to implement)
-- ❌ Stripe not set up yet
+- ✅ Auth pages fully working (signup, signin, callback, complete, success)
+- ✅ All API endpoints implemented and deployed
+- ✅ Stripe integration complete
 
 ---
 
-## Priority 1: Authentication (Required for MVP)
+## ✅ Priority 1: Authentication - COMPLETE
 
 ### Supabase Setup
 - [x] Create Supabase project
 - [x] Configure Google OAuth provider in Supabase
-  - [x] Set up Google Cloud Console OAuth credentials
-  - [x] Configure authorized redirect URIs
-  - [x] Add client ID and secret to Supabase
 - [x] Get Supabase credentials (URL and anon key)
 - [x] Create lib/supabase.js and configure
-- [ ] Update auth pages to activate OAuth (currently show "Coming Soon")
-  - [ ] `auth/signup.html` - Remove placeholder, uncomment Supabase code
-  - [ ] `auth/signin.html` - Remove placeholder, uncomment Supabase code
-  - [ ] `auth/callback.html` - Create callback handler
-- [ ] Test Google OAuth flow end-to-end
-  - [ ] Trial signup (no CC)
-  - [ ] Paid signup (with CC)
-  - [ ] Sign in
+- [x] Auth pages activated and working
+  - [x] `auth/signup.html` - Google OAuth signup
+  - [x] `auth/signin.html` - Google OAuth signin
+  - [x] `auth/callback.html` - OAuth callback handler
+  - [x] `auth/complete.html` - Passes credentials to extension
+  - [x] `auth/success.html` - Post-payment success page
+- [x] Google OAuth flow tested end-to-end
 
 ### Database Schema
 - [x] Create `profiles` table
-  ```sql
-  - id (uuid, references auth.users)
-  - email (text)
-  - is_teacher (boolean)
-  - created_at (timestamp)
-  ```
 - [x] Create `subscriptions` table
-  ```sql
-  - id (uuid, primary key)
-  - user_id (uuid, references profiles)
-  - stripe_customer_id (text)
-  - stripe_subscription_id (text)
-  - status (text) - 'trial', 'active', 'canceled', 'expired', 'past_due'
-  - plan_type (text) - 'monthly' or 'annual'
-  - trial_ends_at (timestamp)
-  - current_period_end (timestamp)
-  - created_at (timestamp)
-  - updated_at (timestamp)
-  ```
 - [x] Create `exported_documents` table
-  ```sql
-  - id (uuid, primary key)
-  - user_id (uuid, references profiles)
-  - document_id (text)
-  - exported_at (timestamp)
-  ```
 - [x] Set up Row Level Security (RLS) policies
-  - [x] Users can only read/write their own data
-  - [x] Secret key bypasses RLS (for API operations)
 - [x] Create auto-trigger for profile creation on signup
 
 ---
 
-## Priority 2: Stripe Integration (Required for Paid Signups)
+## ✅ Priority 2: Stripe Integration - COMPLETE
 
 ### Stripe Setup
-- [ ] Create Stripe account (or use existing)
-- [ ] Create products and prices
-  - [ ] Monthly subscription: $5/month
-  - [ ] Annual subscription: $40/year
-  - [ ] Both with 14-day trial period (for paid signups)
-- [ ] Get API keys (test mode first)
-  - [ ] Secret key
-  - [ ] Publishable key
-  - [ ] Webhook signing secret
-- [ ] Add environment variables to Vercel
-  - [ ] `STRIPE_SECRET_KEY`
-  - [ ] `STRIPE_PUBLISHABLE_KEY`
-  - [ ] `STRIPE_WEBHOOK_SECRET`
-  - [ ] `STRIPE_MONTHLY_PRICE_ID`
-  - [ ] `STRIPE_ANNUAL_PRICE_ID`
+- [x] Using existing Stripe account
+- [x] Created products and prices
+  - [x] Monthly subscription: $5/month
+  - [x] Annual subscription: $40/year
+- [x] API keys configured in Vercel
+  - [x] STRIPE_SECRET_KEY
+  - [x] STRIPE_MONTHLY_PRICE_ID
+  - [x] STRIPE_ANNUAL_PRICE_ID
+  - [x] STRIPE_WEBHOOK_SECRET
+  - [x] SITE_URL
 
 ### API Endpoints
-- [ ] Create `/api/create-checkout.js`
-  - [ ] Accept `userId` and `priceId` parameters
-  - [ ] Create Stripe customer if doesn't exist
-  - [ ] Create checkout session with trial
-  - [ ] Return session URL
-  - [ ] Handle errors
-- [ ] Create `/api/webhook.js`
-  - [ ] Verify webhook signature
-  - [ ] Handle `checkout.session.completed`
-    - [ ] Create/update subscription in database
-    - [ ] Set status to 'active'
-  - [ ] Handle `customer.subscription.updated`
-    - [ ] Update subscription status
-    - [ ] Update current_period_end
-  - [ ] Handle `customer.subscription.deleted`
-    - [ ] Set status to 'canceled'
-  - [ ] Return 200 OK
-- [ ] Configure webhook endpoint in Stripe dashboard
-  - [ ] Add `https://doclens.net/api/webhook` as endpoint
-  - [ ] Select relevant events
-  - [ ] Get webhook signing secret
+- [x] `/api/create-checkout.js` - Creates Stripe checkout sessions
+- [x] `/api/webhook.js` - Handles subscription lifecycle events
+  - [x] checkout.session.completed
+  - [x] customer.subscription.updated
+  - [x] customer.subscription.deleted
+  - [x] invoice.payment_failed
+- [x] `/api/customer-portal.js` - Subscription management portal
+- [x] `/api/check-subscription.js` - Returns subscription status
+- [x] `/api/create-subscription.js` - Creates trial subscriptions
 
-### Signup Flow Updates
-- [ ] Update `auth/signup.html` to handle paid signups
-  - [ ] After Google OAuth, check if `?trial=true`
-  - [ ] If trial: create profile with trial status, done
-  - [ ] If paid: redirect to Stripe checkout
-  - [ ] Handle success/cancel callbacks
-- [ ] Create success page for after checkout
-  - [ ] Show "Payment successful!" message
-  - [ ] Auto-close tab or redirect to extension
+### Webhook Configuration
+- [x] Endpoint: `https://www.doclens.net/api/webhook`
+- [x] Events configured in Stripe Dashboard
+- [x] Webhook signing secret configured
+
+### Pages
+- [x] `/pricing.html` - Plan selection and checkout
+- [x] `/auth/success.html` - Post-payment confirmation
 
 ---
 
-## Priority 3: Trial Management
+## ✅ Priority 3: Trial Management - COMPLETE
 
-### Trial Expiration Logic
-- [ ] Create `/api/check-trial.js` endpoint
-  - [ ] Accept user ID
-  - [ ] Check if trial expired
-  - [ ] Return subscription status
-- [ ] Extension should call this on startup
-  - [ ] If trial expired, show upgrade prompt
-  - [ ] Block analysis features until subscribed
-
-### Trial Expiration Handling
-- [ ] Create Supabase Edge Function or cron job
-  - [ ] Run daily
-  - [ ] Find users where `trial_ends_at < now()`
-  - [ ] Update status to 'expired'
-  - [ ] Send email notification (optional)
-- [ ] Alternatively: Use Stripe Billing to handle trials
-  - [ ] Create subscription at trial start
-  - [ ] Let Stripe handle trial expiration
-  - [ ] Use webhooks to update database
+### Trial Logic
+- [x] `/api/check-subscription.js` endpoint
+  - [x] Returns subscription status (trial, active, expired, canceled)
+  - [x] Calculates if trial expired
+  - [x] Updates status to 'expired' if trial ended
+- [x] Extension checks subscription on panel open
+- [x] Features blocked when trial expired
+- [x] Upgrade prompt shown for expired trials
 
 ---
 
-## Priority 4: Account Management
+## ✅ Priority 4: Account Management - COMPLETE
 
-### Account Page
-- [ ] Update `account/index.html`
-  - [ ] Display current subscription status
-  - [ ] Show trial end date if on trial
-  - [ ] Show next billing date if subscribed
-  - [ ] Display plan type (monthly/annual)
-- [ ] Add "Manage Billing" button
-  - [ ] Redirect to Stripe Customer Portal
-  - [ ] Create `/api/create-portal-session.js`
-  - [ ] Return portal URL for redirect
-- [ ] Show export history
-  - [ ] Query `exported_documents` table
-  - [ ] Display list with document IDs and dates
-  - [ ] Add pagination if needed
+### Subscription Management
+- [x] Customer Portal integration via Stripe
+- [x] `/api/customer-portal.js` creates portal sessions
+- [x] Users can cancel, update payment, view invoices
+- [x] "Manage" link in extension panel for active subscribers
 
 ### Extension Integration
-- [ ] Update extension to communicate with website
-  - [ ] Send auth token to extension after signup/signin
-  - [ ] Extension stores token in chrome.storage
-  - [ ] Extension includes token in API requests
-- [ ] Add subscription check to extension
-  - [ ] Before allowing analysis, check subscription
-  - [ ] Call `/api/check-trial.js` or check locally
-  - [ ] Block features if expired/canceled
+- [x] Extension receives auth tokens via content script
+- [x] Tokens stored in chrome.storage.sync
+- [x] Extension checks subscription before showing features
+- [x] Service worker proxies API calls (avoids CORS)
 
 ---
 
-## Priority 5: Testing & Launch Prep
+## 👉 Priority 5: Launch Prep - IN PROGRESS
 
-### Testing
-- [ ] Test free trial signup flow
-  - [ ] OAuth works
-  - [ ] Profile created in database
-  - [ ] Trial period set correctly
-  - [ ] Extension receives token
-- [ ] Test paid signup flow
-  - [ ] OAuth works
-  - [ ] Redirect to Stripe works
-  - [ ] Subscription created after payment
-  - [ ] Extension receives token
-- [ ] Test webhooks
-  - [ ] Subscription created
-  - [ ] Subscription updated
-  - [ ] Subscription canceled
-  - [ ] Database updates correctly
-- [ ] Test trial expiration
-  - [ ] Features blocked after expiration
-  - [ ] User prompted to upgrade
-- [ ] Test Customer Portal
-  - [ ] Can update payment method
-  - [ ] Can cancel subscription
-  - [ ] Can switch between monthly/annual
+### Chrome Web Store Submission
+- [ ] Create Chrome Web Store developer account ($5 fee)
+- [ ] Prepare store listing
+  - [ ] Screenshots (1280x800 or 640x400)
+  - [ ] Description (up to 132 characters for short, detailed for long)
+  - [ ] Promo images (optional: 440x280 small, 920x680 large)
+  - [ ] Category selection
+- [ ] Package extension as .zip
+- [ ] Submit for review
 
 ### Production Checklist
-- [ ] Switch Stripe to live mode
-  - [ ] Update API keys
-  - [ ] Update price IDs
-  - [ ] Configure live webhook endpoint
-- [ ] Switch Supabase to production
-  - [ ] Review RLS policies
-  - [ ] Set up database backups
-- [ ] Configure domain
-  - [ ] Point doclens.net to Vercel
-  - [ ] Add SSL certificate (automatic with Vercel)
-  - [ ] Test all pages load correctly
-- [ ] Update extension manifest
-  - [ ] Add `https://doclens.net/*` to externally_connectable
-  - [ ] Publish to Chrome Web Store
-- [ ] Create support email: support@doclens.net
-- [ ] Set up error monitoring (optional)
-  - [ ] Sentry or similar
-  - [ ] Track API errors
-  - [ ] Track webhook failures
+- [x] Stripe using live mode keys
+- [x] All environment variables in Vercel
+- [x] Domain configured (doclens.net)
+- [x] SSL certificate (automatic with Vercel)
+- [ ] Test with fresh Google account (full flow)
+- [ ] Review error handling
 
 ---
 
-## Priority 6: Nice-to-Have Features
+## Priority 6: Nice-to-Have Features (Future)
 
-### Future Enhancements
-- [ ] Email notifications
-  - [ ] Trial expiring soon (3 days before)
-  - [ ] Trial expired
-  - [ ] Payment failed
-  - [ ] Subscription canceled
-- [ ] Analytics
-  - [ ] Track signup conversion rates
-  - [ ] Track trial-to-paid conversion
-  - [ ] Monitor monthly churn
-- [ ] Admin dashboard
-  - [ ] View all users
-  - [ ] Subscription statistics
-  - [ ] Export history
-- [ ] Referral program
-  - [ ] Give free month for referrals
-  - [ ] Track referral codes
-- [ ] School/district features
-  - [ ] Bulk user management
-  - [ ] Purchase orders
-  - [ ] Custom data privacy agreements
-  - [ ] Usage reports
+### Potential Improvements
+- [ ] Add "Upgrade" button to trial status bar
+- [ ] Email notifications (trial expiring, payment failed)
+- [ ] Account page on website showing subscription details
+- [ ] Analytics (signup conversion, trial-to-paid conversion)
+- [ ] Admin dashboard for user management
+- [ ] School/district bulk purchasing
 
 ---
 
-## Notes
+## Technical Notes
 
-### Subscription Model Decision
-We're using a **hybrid approach**:
-- **Free Trial (No CC)**: 14 days full access, no payment info required
-  - Tracked in database with `trial_ends_at` timestamp
-  - Status: 'trial' → 'expired' after 14 days
-  - User must add payment to continue
+### Important URLs
+- Website: https://doclens.net
+- Webhook: https://www.doclens.net/api/webhook (must use www!)
+- Pricing: https://doclens.net/pricing
 
-- **Paid Signup (With CC)**: Immediate subscription via Stripe
-  - Stripe handles billing and trial (14 days)
-  - Status: 'active' from the start
-  - Stripe webhooks keep database in sync
+### Webhook Gotcha
+The webhook endpoint must use `www.doclens.net` because `doclens.net` returns a 307 redirect, which Stripe doesn't follow.
 
-This gives users flexibility while simplifying the no-CC trial implementation.
+### Subscription Flow
+1. User signs up via Google OAuth → trial subscription created
+2. User upgrades via /pricing → Stripe checkout
+3. Stripe webhook → updates subscription to 'active'
+4. Extension checks status → shows appropriate UI
 
-### Authentication Flow
-Using **Google OAuth only** because:
-- All users have Google accounts (required for Google Docs)
-- Simpler UX (no password to remember)
-- Better security (Google handles 2FA, recovery, etc.)
-- Industry standard for Google Workspace extensions
-
-### Pricing Rationale
-- **$5/month**: Affordable for individual teachers
-- **$40/year**: Save $20 (33% discount) to encourage annual commitments
-- Lower than Draftback and competitors
-- Appeals to education market (price-sensitive)
+### Auth Flow
+1. User clicks "Try Free" in extension → opens signup page
+2. Google OAuth → callback.html creates subscription
+3. Redirect to complete.html with credentials in URL
+4. Content script (auth-receiver.js) captures and stores in chrome.storage
+5. Extension panel checks storage and subscription API
