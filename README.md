@@ -84,8 +84,8 @@ npm install
 1. Create account at [stripe.com](https://stripe.com)
 2. Get your test API keys from Dashboard → Developers → API keys
 3. Create two products/prices:
-   - **Monthly Plan**: $5/month recurring
-   - **Annual Plan**: $40/year recurring
+   - **Monthly Plan**: $3.99/month recurring
+   - **Annual Plan**: $29/year recurring
 4. Create environment variables (see below)
 
 ### 4. Environment Variables
@@ -102,8 +102,8 @@ SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
 STRIPE_SECRET_KEY=sk_test_...
 STRIPE_PUBLISHABLE_KEY=pk_test_...
 STRIPE_WEBHOOK_SECRET=whsec_...
-STRIPE_MONTHLY_PRICE_ID=price_...  # $5/month price ID
-STRIPE_ANNUAL_PRICE_ID=price_...   # $40/year price ID
+STRIPE_MONTHLY_PRICE_ID=price_...  # $3.99/month price ID
+STRIPE_ANNUAL_PRICE_ID=price_...   # $29/year price ID
 
 # Other
 NODE_ENV=development
@@ -214,7 +214,7 @@ Handles Stripe webhooks:
 ### Current (v1)
 - ✅ Landing page with product info, screenshots, and videos
 - ✅ Privacy policy integrated into main page
-- ✅ Two pricing options: $5/month or $40/year
+- ✅ Two pricing options: $3.99/month or $29/year
 - ✅ Dual signup flow: free trial (no CC) or paid (with CC)
 - ✅ Google OAuth authentication (sign up and sign in)
 - ✅ Basic account management page

@@ -104,8 +104,8 @@ exported_documents (
 **Purpose:** Subscription billing and payment processing
 
 **Products:**
-- Monthly Plan: $5/month
-- Annual Plan: $40/year
+- Monthly Plan: $3.99/month
+- Annual Plan: $29/year
 - Both include 14-day trial for paid signups
 
 **Webhooks:**

@@ -10,7 +10,7 @@ Last updated: January 15, 2026
 - Google OAuth authentication pages
 - Dual signup flow (trial vs. paid)
 - Pricing page with plan selection
-- Pricing: $5/month or $40/year
+- Pricing: $3.99/month or $29/year
 - Deployed at doclens.net with custom domain
 
 **Backend/Integration: ✅ Complete**
@@ -58,8 +58,8 @@ Last updated: January 15, 2026
 ### Stripe Setup
 - [x] Using existing Stripe account
 - [x] Created products and prices
-  - [x] Monthly subscription: $5/month
-  - [x] Annual subscription: $40/year
+  - [x] Monthly subscription: $3.99/month
+  - [x] Annual subscription: $29/year
 - [x] API keys configured in Vercel
   - [x] STRIPE_SECRET_KEY
   - [x] STRIPE_MONTHLY_PRICE_ID

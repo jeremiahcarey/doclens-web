@@ -6,8 +6,8 @@
 
 | Plan | Price | Savings | Billing |
 |------|-------|---------|---------|
-| **Monthly** | $5/month | - | Charged monthly |
-| **Annual** | $40/year | $20/year (33%) | Charged annually |
+| **Monthly** | $3.99/month | - | Charged monthly |
+| **Annual** | $29/year | $19/year (40%) | Charged annually |
 
 ### School/District Plans
 - Custom pricing based on number of teachers
@@ -166,13 +166,13 @@ We offer **two signup paths** to give users flexibility:
 
 ## Pricing Rationale
 
-### Why $5/month?
+### Why $3.99/month?
 - **Affordable for individual teachers:** Most teachers pay out-of-pocket
 - **Lower than competitors:** Draftback charges more
 - **Sustainable:** Covers hosting and support costs
 - **School-friendly:** Easy to reimburse
 
-### Why $40/year (33% discount)?
+### Why $29/year (40% discount)?
 - **Encourages annual commitment:** More predictable revenue
 - **Reduces churn:** Yearly subscribers less likely to cancel
 - **Aligns with school year:** Teachers think in academic years
@@ -188,7 +188,7 @@ We offer **two signup paths** to give users flexibility:
 
 | Product | Price | Trial | Notes |
 |---------|-------|-------|-------|
-| **DocLens** | $5/mo or $40/yr | 14 days, no CC | Lower price, flexible trial |
+| **DocLens** | $3.99/mo or $29/yr | 14 days, no CC | Lower price, flexible trial |
 | Draftback | ~$10/mo | Limited features | Higher price |
 | Turnitin | Enterprise only | - | Schools only, expensive |
 | Grammarly Edu | $30/student/yr | 7 days | Student-focused, different use case |
@@ -196,20 +196,20 @@ We offer **two signup paths** to give users flexibility:
 ## Revenue Projections
 
 ### Conservative (Year 1)
-- 100 paying subscribers × $5/mo = $500/mo = $6,000/yr
-- 50 annual subscribers × $40/yr = $2,000/yr
-- **Total:** ~$8,000/yr
+- 100 paying subscribers × $3.99/mo = $399/mo = $4,788/yr
+- 50 annual subscribers × $29/yr = $1,450/yr
+- **Total:** ~$6,238/yr
 
 ### Moderate (Year 1)
-- 500 paying monthly × $5 = $2,500/mo = $30,000/yr
-- 200 annual × $40 = $8,000/yr
-- **Total:** ~$38,000/yr
+- 500 paying monthly × $3.99 = $1,995/mo = $23,940/yr
+- 200 annual × $29 = $5,800/yr
+- **Total:** ~$29,740/yr
 
 ### Optimistic (Year 1)
-- 1,000 paying monthly × $5 = $5,000/mo = $60,000/yr
-- 500 annual × $40 = $20,000/yr
+- 1,000 paying monthly × $3.99 = $3,990/mo = $47,880/yr
+- 500 annual × $29 = $14,500/yr
 - 5 school licenses × $500/yr = $2,500/yr
-- **Total:** ~$82,500/yr
+- **Total:** ~$64,880/yr
 
 ### Assumptions
 - 10% trial-to-paid conversion rate
