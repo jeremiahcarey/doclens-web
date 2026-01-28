@@ -50,6 +50,11 @@
       "source": "/auth/callback",
       "destination": "/auth/callback.html",
       "permanent": false
+    },
+    {
+      "source": "/terms",
+      "destination": "/terms.html",
+      "permanent": false
     }
   ]
 }
