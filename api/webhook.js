@@ -86,8 +86,6 @@ export default async function handler(req, res) {
 
           if (updateError) {
             console.error('Failed to update subscription:', updateError);
-          } else {
-            console.log('Subscription activated:', subscriptionId);
           }
         }
         break;
@@ -114,8 +112,6 @@ export default async function handler(req, res) {
             .from('subscriptions')
             .update(updateData)
             .eq('stripe_subscription_id', subscription.id);
-
-          console.log('Subscription updated:', subscription.id);
         }
         break;
       }
@@ -130,7 +126,6 @@ export default async function handler(req, res) {
           })
           .eq('stripe_subscription_id', subscription.id);
 
-        console.log('Subscription canceled:', subscription.id);
         break;
       }
 
@@ -146,13 +141,12 @@ export default async function handler(req, res) {
             })
             .eq('stripe_subscription_id', subscriptionId);
 
-          console.log('Payment failed for subscription:', subscriptionId);
         }
         break;
       }
 
       default:
-        console.log(`Unhandled event type: ${event.type}`);
+        // Unhandled event type - ignore
     }
 
     return res.status(200).json({ received: true });
