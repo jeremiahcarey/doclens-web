@@ -60,6 +60,11 @@
       "source": "/privacy",
       "destination": "/privacy.html",
       "permanent": false
+    },
+    {
+      "source": "/resources/ai-detection-2026",
+      "destination": "/resources/ai-detection-2026.html",
+      "permanent": false
     }
   ]
 }

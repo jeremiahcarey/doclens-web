@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The State of AI Writing Detection in Education in 2026 - DocLens</title>
+  <meta name="description" content="Recent research shows the limits of AI text detection. Here's why after-the-fact methods fall short, and why process-based approaches like DocLens may be the future.">
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="The State of AI Writing Detection in Education in 2026">
+  <meta property="og:description" content="Recent research shows the limits of AI text detection. Here's why after-the-fact methods fall short, and why process-based approaches may be the future.">
+  <meta property="og:image" content="https://doclens.net/resources/images/human-vs-ai.png">
+  <meta property="og:url" content="https://doclens.net/resources/ai-detection-2026">
+  <meta property="og:site_name" content="DocLens">
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="The State of AI Writing Detection in Education in 2026">
+  <meta name="twitter:description" content="Recent research shows the limits of AI text detection. Here's why after-the-fact methods fall short, and why process-based approaches may be the future.">
+  <meta name="twitter:image" content="https://doclens.net/resources/images/human-vs-ai.png">
+  <link rel="icon" type="image/svg+xml" href="/images/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="stylesheet" href="/styles/main.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    .article-page {
+      min-height: 100vh;
+      padding-top: 80px;
+    }
+    .article-header {
+      text-align: center;
+      padding: 60px 20px 48px;
+      background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 100%);
+    }
+    .article-meta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin: 28px 0 20px;
+    }
+    .article-date {
+      font-size: 0.875rem;
+      color: #6b7280;
+    }
+    .article-tag {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #2563eb;
+      background: #eff6ff;
+      padding: 3px 10px;
+      border-radius: 999px;
+    }
+    .article-title {
+      font-family: 'Libre Baskerville', serif;
+      font-size: clamp(1.75rem, 4vw, 2.75rem);
+      color: #1e293b;
+      max-width: 760px;
+      margin: 0 auto 16px;
+      line-height: 1.25;
+    }
+    .article-description {
+      font-size: 1.125rem;
+      color: #6b7280;
+      max-width: 640px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+    .article-body {
+      max-width: 740px;
+      margin: 0 auto;
+      padding: 48px 20px 96px;
+    }
+    .article-body p {
+      color: #374151;
+      line-height: 1.85;
+      margin-bottom: 1.4rem;
+      font-size: 1.0625rem;
+    }
+    .article-body h2 {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 1.625rem;
+      color: #1e293b;
+      margin: 2.75rem 0 1rem;
+    }
+    .article-body h3 {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 1.25rem;
+      color: #1e293b;
+      margin: 2rem 0 0.75rem;
+    }
+    .article-body ul, .article-body ol {
+      margin: 0.75rem 0 1.4rem 1.5rem;
+      color: #374151;
+      line-height: 1.85;
+    }
+    .article-body li {
+      margin-bottom: 0.4rem;
+      font-size: 1.0625rem;
+    }
+    .article-body strong {
+      color: #1f2937;
+    }
+    .article-body em {
+      color: #4b5563;
+    }
+    .article-body a {
+      color: #2563eb;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    .article-body a:hover {
+      color: #1e40af;
+    }
+    .article-divider {
+      border: none;
+      border-top: 1px solid #e5e7eb;
+      margin: 2.5rem 0;
+    }
+    .article-callout {
+      background: #eff6ff;
+      border-left: 4px solid #2563eb;
+      padding: 20px 24px;
+      border-radius: 0 8px 8px 0;
+      margin: 2rem 0;
+    }
+    .article-callout p {
+      margin-bottom: 0;
+      color: #1e3a8a;
+    }
+    .article-img {
+      width: 80%;
+      border-radius: 8px;
+      margin: 1.75rem auto;
+      display: block;
+    }
+    .article-img-caption {
+      text-align: center;
+      font-size: 0.875rem;
+      color: #9ca3af;
+      margin-top: -1rem;
+      margin-bottom: 1.75rem;
+    }
+    .article-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #2563eb;
+      text-decoration: none;
+      font-size: 0.9375rem;
+      margin-top: 2rem;
+    }
+    .article-back:hover {
+      color: #1e40af;
+      text-decoration: underline;
+    }
+    .citations {
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid #e5e7eb;
+    }
+    .citations h2 {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 1.25rem;
+      color: #1e293b;
+      margin-bottom: 1.25rem;
+    }
+    .citations ol {
+      margin: 0;
+      padding-left: 1.5rem;
+      color: #6b7280;
+      line-height: 1.8;
+    }
+    .citations li {
+      font-size: 0.9rem;
+      margin-bottom: 0.6rem;
+    }
+    .citations a {
+      color: #2563eb;
+      word-break: break-all;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="container">
+      <div class="nav-content">
+        <a href="/" class="logo">DocLens</a>
+        <ul class="nav-links">
+          <li><a href="/#how-it-works">How It Works</a></li>
+          <li><a href="/#features">Features</a></li>
+          <li><a href="/#pricing">Pricing</a></li>
+          <li><a href="/#faq">FAQ</a></li>
+          <li><a href="/privacy">Privacy</a></li>
+          <li><a href="/auth/signin.html" class="nav-link-signin">Sign In</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="article-page">
+    <div class="article-header">
+      <div class="article-meta">
+        <span class="article-tag">Education &amp; AI</span>
+        <span class="article-date">February 2026</span>
+      </div>
+      <h1 class="article-title">The State of AI Writing Detection in Education in 2026</h1>
+      <p class="article-description">
+        Recent research shows the limits of AI text detection. Here's why after-the-fact methods
+        fall short — and why process-based approaches may be the future.
+      </p>
+    </div>
+
+    <div class="article-body">
+
+      <p>
+        Over the past few years, artificial intelligence has moved from the background of education
+        to the foreground. Large language models such as ChatGPT, Gemini, and Claude are now able to
+        produce essays, reports, and even research papers that look remarkably human. For teachers
+        and administrators, an increasingly pressing question has become: <em>can we reliably tell
+        when a student hands in AI-generated work?</em>
+      </p>
+
+      <img
+        src="/resources/images/human-vs-ai.png"
+        alt="A human hand and a robotic hand both writing with the same pen"
+        class="article-img"
+      >
+
+      <p>
+        A growing number of commercial tools promise to do just that. Services like GPTZero,
+        Copyleaks, Turnitin, and others advertise that they can identify machine-written text and
+        safeguard academic integrity. Yet, despite their popularity, the evidence for their
+        effectiveness is not promising. Both research and classroom experience show that post-hoc
+        detection of AI writing faces deep technical, theoretical, and practical challenges. At best,
+        these tools offer a probability judgment; at worst, they mislabel genuine student work.
+      </p>
+
+      <p>
+        This article surveys recent research on AI detection, showing why the problem is harder than
+        many assume — and why educators may need to consider alternatives that focus less on catching
+        students after the fact and more on supporting integrity during the writing process.
+      </p>
+
+      <hr class="article-divider">
+
+      <h2>The Current Landscape of AI Detection</h2>
+
+      <p>
+        AI detectors typically fall into a few categories. Some rely on <strong>supervised
+        classifiers</strong> trained to distinguish between human and AI text. Others use
+        <strong>linguistic or statistical fingerprints</strong> — for example, how often certain
+        words or structures appear. More ambitious approaches include <strong>retrieval-based
+        methods</strong> (checking whether passages appear verbatim in model outputs) and
+        <strong>watermarking</strong> (embedding hidden signals into generated text).
+      </p>
+
+      <p>
+        These methods can show promising results in controlled tests. Top-tier commercial tools like
+        GPTZero and Turnitin sometimes report 85–95% accuracy on clean, unmodified AI text of
+        adequate length, seemingly confirmed by the <a href="https://arxiv.org/abs/2405.07940">RAID benchmark</a> (ACL
+        2024), the field's most comprehensive evaluation framework. But these best-case figures collapse quickly in real-world
+        conditions. A landmark 2024 study by <a href="https://doi.org/10.1186/s41239-024-00487-w">Perkins
+        et al.</a> tested six major detectors — Turnitin, GPTZero, ZeroGPT, Copyleaks, Crossplag,
+        and the GPT-2 Output Detector — on 805 samples from GPT-4, Claude 2, and Bard. Baseline
+        accuracy across all tools averaged just <strong>39.5%</strong>. When students applied simple
+        adversarial techniques like paraphrasing and prompt engineering, accuracy dropped further to
+        <strong>17.4%</strong> — worse than random guessing. This study is now among the most-cited
+        in the field and has directly influenced university policy decisions worldwide.
+      </p>
+
+      <h2>Theoretical and Technical Limits</h2>
+
+      <p>
+        Some of the deepest challenges are not just practical but theoretical.
+      </p>
+
+      <p>
+        A 2024 paper, <a href="https://arxiv.org/abs/2403.05750"><em>Decoding the AI Pen: Techniques
+        and Challenges in Detecting AI-Generated Text</em></a> (Abdali et al., KDD 2024), highlights
+        a fundamental problem: as LLMs get closer to human-like distribution patterns, the ability
+        to distinguish between human and AI text approaches the limits of probability. When two
+        distributions overlap almost completely, even the best detector can do only slightly better
+        than random guessing. This impossibility result has been formalized by
+        <a href="https://arxiv.org/abs/2303.11156">Sadasivan et al. (University of Maryland)</a>,
+        who mathematically demonstrated that as LLMs converge on human text distributions, even
+        theoretically optimal detectors approach random-chance performance.
+      </p>
+
+      <img
+        src="/resources/images/human-vs-ai-distribution.png"
+        alt="Overlapping bell curves showing human and AI text distributions converging"
+        class="article-img"
+      >
+      <p class="article-img-caption">As AI text distributions converge with human ones, the ability to distinguish them statistically approaches the limits of probability.</p>
+
+      <p>
+        The same paper also points to <strong>adversarial vulnerabilities</strong>. Simple tricks
+        such as paraphrasing, re-ordering, or intentionally "dirtying" text with spelling mistakes
+        can fool many detectors. Spoofing and data poisoning attacks further erode reliability.
+      </p>
+
+      <p>
+        These limits are reinforced in a 2024 <em>Cell Reports Physical Science</em> article,
+        <a href="https://www.cell.com/cell-reports-physical-science/fulltext/S2666-3864(23)00614-8"><em>Perfect
+        detection of computer-generated text faces fundamental challenges</em></a> (Májovský et al.).
+        The authors argue that "perfect" detection is not just hard but impossible. Detection methods
+        and generation models are locked in an arms race: every time detectors improve, AI systems
+        learn to evade them. As a result, detection tools may only provide a temporary edge before
+        being rendered obsolete. The paper suggests shifting focus away from purely technical
+        solutions and toward ethical frameworks and institutional guidelines for academic integrity.
+      </p>
+
+      <h2>Empirical Evidence: Detection in Practice</h2>
+
+      <p>
+        A 2023 study in the <a href="https://link.springer.com/article/10.1007/s40979-023-00140-5"><em>International
+        Journal for Educational Integrity</em></a> (Elkhatat et al.) tested five well-known tools —
+        OpenAI Classifier, Writer, Copyleaks, GPTZero, and CrossPlag — on a set of academic
+        abstracts. The findings were clear: the tools performed reasonably well on GPT-3.5 outputs
+        but struggled with GPT-4, producing more false negatives. Even more concerning were
+        <strong>false positives</strong>, where genuine human writing was flagged as AI. For
+        teachers, this means that relying too heavily on these tools risks wrongly accusing students
+        of misconduct. A <a href="https://doi.org/10.37074/jalt.2024.7.1.33">2024 comparative
+        study</a> evaluating 30 AI detectors found significant variation in accuracy and
+        substantially higher false-positive rates for non-native English writers — a pattern first
+        identified by <a href="https://doi.org/10.1016/j.patter.2023.100779">Liang et al.
+        (Stanford, <em>Patterns</em> 2023)</a>, who found that over 61% of TOEFL essays by
+        non-native English speakers were misclassified as AI-generated.
+      </p>
+
+      <p>
+        Human evaluators don't fare much better. A peer-reviewed study presented at
+        <a href="https://arxiv.org/abs/2304.01002">AAAI HCOMP 2023</a> found that in controlled
+        experiments, people asked to identify AI text did only slightly better than chance: about
+        <strong>53% accuracy</strong> for general populations in binary-choice settings. Studies
+        across different contexts put the realistic range at roughly <strong>50–70%</strong>,
+        depending on evaluator expertise and text characteristics — medical experts evaluating
+        GPT-3.5 outputs, for instance, achieved around 70% accuracy. Even when trained, most human
+        evaluators found it very difficult to reliably distinguish AI writing.
+      </p>
+
+      <p>
+        Some feature-based approaches show promise in highly specific domains. A 2023
+        <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10704924/"><em>Cell Reports Physical
+        Science</em></a> study (Desaire et al.) on chemistry writing used an XGBoost classifier with
+        20 text features and achieved 98–100% accuracy when distinguishing AI-generated chemistry
+        abstracts from human ones. Yet real-world student writing is far more varied and messy than
+        curated journal prose, making false positives more likely — and such narrow domain-specific
+        classifiers are unlikely to transfer to general academic writing.
+      </p>
+
+      <p>
+        The broader picture from Perkins et al. (2024), mentioned above, is stark: when students apply even basic
+        evasion techniques, detector accuracy across major tools falls to around 17%. These are not
+        sophisticated attacks — they include simply asking the AI to paraphrase its own output. The
+        gap between laboratory benchmarks and real-world adversarial conditions is the most
+        important fact for educators to understand.
+      </p>
+
+      <h2>What This Means for Education</h2>
+
+      <p>
+        For teachers and administrators, these research findings present a dilemma. On one hand,
+        institutions want to preserve academic integrity and ensure that students are actually
+        learning. On the other, over-reliance on weak detection tools risks undermining fairness.
+      </p>
+
+      <p>
+        <strong>False positives</strong> can unfairly penalize students, damaging trust and even
+        leading to legal disputes. The bias against non-native English writers is particularly
+        serious: Liang et al.'s finding that over 61% of genuine TOEFL essays are misclassified as
+        AI-generated is not a marginal edge case — it represents a systemic fairness failure.
+        <strong>False negatives</strong> can give educators a false sense of security. And because
+        detection tools are not standardized, two different systems might produce opposite judgments
+        on the same essay.
+      </p>
+
+      <p>
+        These concerns have prompted a wave of institutional action. By 2025, major universities
+        including UCLA, UC San Diego, Vanderbilt, MIT, NYU, Northwestern, Penn State, Johns Hopkins,
+        and the University of Minnesota had either deactivated Turnitin's AI detector or formally
+        discouraged its use. Vanderbilt calculated that even a 1% false-positive rate would produce
+        approximately 750 wrongly flagged papers from 75,000 annual submissions. A CalMatters/The
+        Markup <a href="https://calmatters.org/education/higher-education/2025/06/ai-detector/">investigation</a> 
+        documented that California institutions spent over $15 million on
+        Turnitin, with the Cal State system paying $163,000 specifically for AI detection features
+        that many campuses subsequently disabled.
+      </p>
+
+      <p>
+        The <a href="https://www.cell.com/cell-reports-physical-science/fulltext/S2666-3864(23)00614-8"><em>Cell
+        Reports Physical Science</em></a> paper is blunt: educators should not expect perfect
+        technological solutions. Instead, they should combine vigilance with cultural and ethical
+        responses. This means developing clear policies, teaching students about the responsible use
+        of AI, and fostering an environment where integrity is expected and valued. Frameworks like
+        the AI Assessment Scale — which specifies expected levels of AI use rather than attempting
+        to detect violations — have emerged as a more workable policy approach.
+      </p>
+
+      <h2>Alternatives: Process-Based Approaches</h2>
+
+      <img
+        src="/resources/images/detection-vs-process.png"
+        alt="Side-by-side comparison of post-hoc detection versus process tracking"
+        class="article-img"
+      >
+      <p class="article-img-caption">Post-hoc detection analyzes a finished product; process tracking observes how that product was created.</p>
+
+      <p>
+        If post-hoc detection of finished text is unreliable, what alternatives exist? One promising
+        direction is to shift the focus from <strong>product to process</strong>.
+      </p>
+
+      <p>
+        Instead of trying to analyze a completed essay, educators can look at how the essay was
+        written. Process-based approaches include:
+      </p>
+
+      <ul>
+        <li><strong>Draft history tracking</strong>, which records how a document evolved over time.</li>
+        <li><strong>Keystroke or edit logging</strong>, which shows whether a student wrote steadily or pasted large chunks at once.</li>
+        <li><strong>Interactive writing environments</strong>, where students compose directly in platforms that preserve revision data.</li>
+      </ul>
+
+      <p>
+        The research case for keystroke-based approaches is promising. A study presented at
+        <a href="https://arxiv.org/html/2406.15335v1">IEEE IJCB 2024</a> proposed keystroke
+        dynamics as a biometric signal for detecting AI-assisted writing. More directly, Crossley
+        et al. (EDM 2024) achieved <strong>99% accuracy</strong> using 155 keystroke logging
+        measures to determine whether text was authentically written or copy-pasted — analyzing
+        typing rhythms, pauses, revision patterns, and burst lengths rather than the finished text.
+        These behavioral signals are inherently resistant to the evasion techniques that defeat
+        product-based detectors, because a student cannot generally fake the process of writing even if they
+        can polish the output.
+      </p>
+
+      <p>
+        Tools like <strong><a href="/">DocLens</a></strong> are built with this philosophy in mind.
+        Rather than guessing whether a finished essay was written by AI, DocLens surfaces the
+        writing process behind Google Docs assignments — logging edits, revisions, and writing
+        patterns over time. This provides teachers with transparent insight into how student work
+        was produced, reducing reliance on brittle after-the-fact detectors.
+      </p>
+
+      <h2>Conclusion</h2>
+
+      <p>
+        The research consensus is clear: detecting AI-generated writing after the fact is a problem
+        with <strong>hard limits</strong>. As LLMs grow more sophisticated, their outputs overlap so
+        closely with human writing that even theoretically optimal detectors approach random-chance
+        performance. Real-world testing shows that simple evasion drops accuracy below 20%.
+        Institutional trust in detection tools is eroding — dozens of major universities have
+        disabled AI detection features, citing unacceptable false-positive rates that disproportionately
+        harm non-native English speakers.
+      </p>
+
+      <p>
+        This does not mean that educators are powerless. It means the challenge must be reframed.
+        Instead of relying on brittle tools to separate human from machine after the fact, we can
+        design classrooms, policies, and technologies that emphasize process, support integrity, and
+        make authentic work the easiest path forward. The emerging consensus — in research and
+        institutional policy alike — is that assessment redesign and process monitoring offer a more
+        durable path than detection-based enforcement.
+      </p>
+
+      <p>
+        Platforms like DocLens help teachers see the full writing process, providing a fairer and
+        more reliable way to support authentic student work — without giving up on the essay entirely.
+      </p>
+
+      <hr class="article-divider">
+
+      <div class="citations">
+        <h2>Citations</h2>
+        <ol>
+          <li>
+            Abdali, S., Anarfi, R., Barberan, C. J., &amp; He, J. (2024). Decoding the AI pen: Techniques
+            and challenges in detecting AI-generated text. <em>KDD 2024</em>, pp. 6428–6436.
+            DOI: 10.1145/3637528.3671463.
+            <a href="https://arxiv.org/abs/2403.05750">arXiv:2403.05750</a>
+          </li>
+          <li>
+            Májovský, M., Černý, M., Netuka, D., &amp; Mikolov, T. (2024). Perfect detection of
+            computer-generated text faces fundamental challenges. <em>Cell Reports Physical Science</em>,
+            5(1), 101769. DOI: 10.1016/j.xcrp.2023.101769.
+            <a href="https://www.cell.com/cell-reports-physical-science/fulltext/S2666-3864(23)00614-8">Full text</a>
+          </li>
+          <li>
+            Elkhatat, A. M., Elsaid, K., &amp; Almeer, S. (2023). Evaluating the efficacy of AI content
+            detection tools in differentiating between human and AI-generated text.
+            <em>International Journal for Educational Integrity</em>, 19, Article 17.
+            DOI: 10.1007/s40979-023-00140-5.
+            <a href="https://link.springer.com/article/10.1007/s40979-023-00140-5">Full text</a>
+          </li>
+          <li>
+            Uchendu, A., Lee, J., Shen, H., Le, T., Huang, T.-H. K., &amp; Lee, D. (2023). Does human
+            collaboration enhance the accuracy of identifying LLM-generated deepfake texts?
+            <em>Proceedings of AAAI HCOMP 2023</em>, 11(1), pp. 163–174.
+            DOI: 10.1609/hcomp.v11i1.27557.
+            <a href="https://arxiv.org/abs/2304.01002">arXiv:2304.01002</a>
+          </li>
+          <li>
+            Desaire, H., Chua, A. E., Kim, M.-G., &amp; Hua, D. (2023). Accurately detecting AI text
+            when ChatGPT is told to write like a chemist. <em>Cell Reports Physical Science</em>,
+            4(11), 101672. DOI: 10.1016/j.xcrp.2023.101672.
+            <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10704924/">PMC10704924</a>
+          </li>
+          <li>
+            Fraser, K. C., Dawkins, H., &amp; Kiritchenko, S. (2025). Detecting AI-generated text:
+            Factors influencing detectability with current methods. <em>Journal of Artificial
+            Intelligence Research</em>, 82, pp. 2233–2278. DOI: 10.1613/jair.1.16665.
+            <a href="https://www.jair.org/index.php/jair/article/view/16665">Full text</a>
+          </li>
+          <li>
+            Perkins, M., et al. (2024). Simple techniques to bypass GenAI text detectors: Implications
+            for inclusive education. <em>International Journal of Educational Technology in Higher
+            Education</em>, 21, 53. DOI: 10.1186/s41239-024-00487-w.
+            <a href="https://doi.org/10.1186/s41239-024-00487-w">Full text</a>
+          </li>
+          <li>
+            Sadasivan, V. S., et al. (2023). Can AI-generated text be reliably detected?
+            University of Maryland.
+            <a href="https://arxiv.org/abs/2303.11156">arXiv:2303.11156</a>
+          </li>
+          <li>
+            Liang, W., et al. (2023). GPT detectors are biased against non-native English writers.
+            <em>Patterns</em>. DOI: 10.1016/j.patter.2023.100779.
+            <a href="https://doi.org/10.1016/j.patter.2023.100779">Full text</a>
+          </li>
+          <li>
+            Dugan, L., et al. (2024). RAID: A shared benchmark for robust evaluation of machine-generated
+            text detectors. <em>ACL 2024</em>.
+            <a href="https://arxiv.org/abs/2405.07940">arXiv:2405.07940</a>
+          </li>
+          <li>
+            Chaka, C. (2024). Accuracy pecking order among AI detectors in detecting AI-generated text
+            in L1 and L2 university essays.
+            <em>Journal of Applied Learning &amp; Teaching</em>, 7(1).
+            DOI: 10.37074/jalt.2024.7.1.33.
+            <a href="https://doi.org/10.37074/jalt.2024.7.1.33">Full text</a>
+          </li>
+        </ol>
+      </div>
+
+      <a href="/" class="article-back">&larr; Back to Home</a>
+    </div>
+  </div>
+</body>
+</html>
